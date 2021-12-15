@@ -27,7 +27,7 @@ cd "$BASE_DIRECTORY/example"
 # TODO: Remove the yo beta version when the full version 4 is released.
 # https://github.com/yeoman/generator/issues/1279
 yarn init -y
-yarn add -D yo@next-4
+yarn add -D yo
 echo
 
 # Set up the project as a Git repo

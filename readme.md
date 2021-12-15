@@ -5,13 +5,13 @@ projects easy and enjoyable.
 
 ## TL/DR
 
-**BUG FIX: Right now the main release of `yo` is broken. To fix it, use `yo@next-4` instead.**
+**BUG FIX: Right now the main release of `yo` is broken. To fix it, use `yo` instead.**
 
 ``` bash
-npx -p yo@next-4 -p @landonschropp/generator-babel yo @landonschropp/babel
-npx -p yo@next-4 -p @landonschropp/generator-eslint yo @landonschropp/eslint
-npx -p yo@next-4 -p @landonschropp/generator-import-js yo @landonschropp/import-js
-npx -p yo@next-4 -p @landonschropp/generator-language-server yo @landonschropp/language-server
+npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
+npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
+npx -p yo -p @landonschropp/generator-import-js yo @landonschropp/import-js
+npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
 ```
 
 ## The Generators
@@ -29,13 +29,13 @@ Run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX al
 generator once without having to install anything. Answer the generator's prompts, and you're done!
 
 ``` sh
-npx -p yo@next-4 -p @landonschropp/generator-<generator> yo @landonschropp/<generator>
+npx -p yo -p @landonschropp/generator-<generator> yo @landonschropp/<generator>
 ```
 
 You can also see the documentation and options for each generator by including the `--help` flag.
 
 ``` sh
-npx -p yo@next-4 -p @landonschropp/generator-eslint yo @landonschropp/eslint --help
+npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint --help
 ```
 
 You can run any of these generators independently. However, please be aware that some

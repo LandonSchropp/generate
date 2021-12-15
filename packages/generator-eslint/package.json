@@ -17,6 +17,6 @@
   },
   "author": "Landon Schropp <schroppl@gmail.com>",
   "dependencies": {
-    "yeoman-generator": "5.2.0"
+    "yeoman-generator": "5.4.2"
   }
 }
