@@ -1,6 +1,6 @@
 {
   "name": "@landonschropp/generator-jest",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "homepage": "https://github.com/LandonSchropp/yeoman-generators",
   "repository": "http://github.com/LandonSchropp/yeoman-generators",
   "description": "My personal Jest Yeoman generator",
