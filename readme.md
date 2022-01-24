@@ -5,8 +5,6 @@ projects easy and enjoyable.
 
 ## TL/DR
 
-**BUG FIX: Right now the main release of `yo` is broken. To fix it, use `yo` instead.**
-
 ``` bash
 npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
 npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
