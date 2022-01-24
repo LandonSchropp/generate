@@ -13,6 +13,11 @@ module.exports = class ESLintGenerator extends Generator {
         type: "confirm",
         name: "react",
         message: "Is this a React project?"
+      },
+      {
+        type: "confirm",
+        name: "babel",
+        message: "Would you like to use Babel with ESLint?"
       }
     ]));
   }
