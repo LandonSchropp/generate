@@ -1,0 +1,22 @@
+{
+  "name": "@landonschropp/generator-jest",
+  "version": "0.6.3",
+  "homepage": "https://github.com/LandonSchropp/yeoman-generators",
+  "repository": "http://github.com/LandonSchropp/yeoman-generators",
+  "description": "My personal Jest Yeoman generator",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "files": [
+    "app"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Landon Schropp <schroppl@gmail.com>",
+  "dependencies": {
+    "yeoman-generator": "5.4.2"
+  }
+}

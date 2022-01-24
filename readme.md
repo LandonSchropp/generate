@@ -10,6 +10,7 @@ npx yo @landonschropp/init
 npx yo @landonschropp/babel
 npx yo @landonschropp/eslint
 npx yo @landonschropp/language-server
+npx yo @landonschropp/jest
 ```
 
 ## The Generators
@@ -24,6 +25,8 @@ This project includes several generators.
   a project.
 * [generator-language-server](packages/generator-language-server/readme.md): Configures a JavaScript
   language server.
+* [generator-jest](packages/generator-language-server/readme.md): Configures a Jest testing
+  environment.
 
 Run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX allows you to run the
 generator once without having to install anything. Answer the generator's prompts, and you're done!
