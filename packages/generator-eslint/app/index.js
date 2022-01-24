@@ -20,6 +20,7 @@ module.exports = class ESLintGenerator extends Generator {
   async install() {
     await this.addDevDependencies([
       "eslint",
+      "eslint_d",
       "@landonschropp/eslint-config",
       "@babel/eslint-parser"
     ]);
