@@ -1,6 +1,6 @@
 module.exports = {<% if (babel) { %>
   parser: "@babel/eslint-parser",<% } %>
-  extends: [ "@landonschropp"<%- react ? ', "@landonschropp/react"' : '' %> ],<% if (babel) { %>
+  extends: [ "@landonschropp"<%- react ? ', "@landonschropp/react"' : '' %> ],<% if (!babel) { %>
   parserOptions: {
     sourceType: "module",
     ecmaVersion: "latest"
