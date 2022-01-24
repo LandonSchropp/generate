@@ -10,7 +10,6 @@ projects easy and enjoyable.
 ``` bash
 npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
 npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
-npx -p yo -p @landonschropp/generator-import-js yo @landonschropp/import-js
 npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
 ```
 
@@ -23,7 +22,6 @@ This project includes several generators.
 * [eslint](packages/generator-eslint/readme.md): Adds my personal ESLint configuration to a project.
 * [language-server](packages/generator-language-server/readme.md): Configures a JavaScript language
   server.
-* [import-js](packages/generator-import-js/readme.md): Adds ImportJS to a project.
 
 Run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX allows you to run the
 generator once without having to install anything. Answer the generator's prompts, and you're done!
