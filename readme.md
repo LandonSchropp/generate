@@ -6,6 +6,7 @@ projects easy and enjoyable.
 ## TL/DR
 
 ``` bash
+npx -p yo -p @landonschropp/generator-babel yo @landonschropp/init
 npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
 npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
 npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
@@ -15,6 +16,8 @@ npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language
 
 This project includes several generators.
 
+* [generator-init](packages/generator-init/readme.md): Sets up a brand-new Node.js repository. This
+  is similar to `yarn init`, but it includes different configuration and a few extras.
 * [generator-babel](packages/generator-babel/readme.md): Sets up Babel and optionally installs a few
   useful plugins I use often.
 * [generator-eslint](packages/generator-eslint/readme.md): Adds my personal ESLint configuration to
