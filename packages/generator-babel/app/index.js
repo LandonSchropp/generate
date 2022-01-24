@@ -32,13 +32,13 @@ module.exports = class BabelGenerator extends Generator {
     };
 
     this.fs.writeJSON(
-      this.destinationPath(".babelrc"),
+      this.destinationPath("babel.config.json"),
       babelConfiguration
     );
   }
 
   end() {
-    this.spawnCommandSync("git", [ "add", ".babelrc", "package.json", "yarn.lock" ]);
+    this.spawnCommandSync("git", [ "add", "babel.config.json", "package.json", "yarn.lock" ]);
     this.spawnCommandSync("git", [ "commit", "-m", "Add Babel" ]);
   }
 };
