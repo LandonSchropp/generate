@@ -12,5 +12,5 @@ necessary to run a JavaScript language server.
 To use the generator, run the following command:
 
 ``` sh
-npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
+npx yo @landonschropp/language-server
 ```

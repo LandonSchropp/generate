@@ -6,10 +6,10 @@ projects easy and enjoyable.
 ## TL/DR
 
 ``` bash
-npx -p yo -p @landonschropp/generator-babel yo @landonschropp/init
-npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
-npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
-npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
+npx yo @landonschropp/init
+npx yo @landonschropp/babel
+npx yo @landonschropp/eslint
+npx yo @landonschropp/language-server
 ```
 
 ## The Generators
@@ -29,13 +29,13 @@ Run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX al
 generator once without having to install anything. Answer the generator's prompts, and you're done!
 
 ``` sh
-npx -p yo -p @landonschropp/generator-<generator> yo @landonschropp/<generator>
+npx yo @landonschropp/<generator>
 ```
 
 You can also see the documentation and options for each generator by including the `--help` flag.
 
 ``` sh
-npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint --help
+npx @landonschropp/eslint --help
 ```
 
 You can run any of these generators independently.
