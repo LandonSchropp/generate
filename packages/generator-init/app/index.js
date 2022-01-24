@@ -4,6 +4,11 @@ const { basename } = require("path");
 
 module.exports = class InitGenerator extends Generator {
 
+  constructor(...parameters) {
+    super(...parameters);
+    this.env.options.nodePackageManager = "yarn";
+  }
+
   async prompting() {
     const directory = basename(this.contextRoot);
 
@@ -94,7 +99,6 @@ module.exports = class InitGenerator extends Generator {
   }
 
   end() {
-    this.spawnCommandSync("yarn", [ "install" ]);
     this.spawnCommandSync("git", [ "add", "package.json", "yarn.lock", ".gitignore" ]);
     this.spawnCommandSync("git", [ "commit", "-m", "Initial commit" ]);
   }
