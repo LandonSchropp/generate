@@ -1,5 +1,9 @@
 const Generator = require("yeoman-generator");
 
+const BABEL_PARSER = "Babel";
+const TYPESCRIPT_PARSER = "TypeScript";
+const NONE_PARSER = "None";
+
 module.exports = class ESLintGenerator extends Generator {
 
   async prompting() {
@@ -10,14 +14,15 @@ module.exports = class ESLintGenerator extends Generator {
         message: "Is this a browser project?"
       },
       {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?"
+        type: "list",
+        name: "parser",
+        message: "Which parser would you like to use?",
+        choices: [ BABEL_PARSER, TYPESCRIPT_PARSER, NONE_PARSER ]
       },
       {
         type: "confirm",
-        name: "babel",
-        message: "Would you like to use Babel with ESLint?"
+        name: "react",
+        message: "Is this a React project?"
       }
     ]));
   }
@@ -26,15 +31,26 @@ module.exports = class ESLintGenerator extends Generator {
     await this.addDevDependencies([
       "eslint",
       "eslint_d",
-      "@landonschropp/eslint-config",
-      "@babel/eslint-parser"
+      "@landonschropp/eslint-config"
     ]);
 
     if (this.react) {
       await this.addDevDependencies([
-        "@babel/eslint-parser",
+        "@landonschropp/eslint-config-react",
         "eslint-plugin-react",
         "eslint-plugin-react-hooks"
+      ]);
+    }
+
+    if (this.parser === BABEL_PARSER) {
+      await this.addDevDependencies([ "@babel/eslint-parser" ]);
+    }
+
+    if (this.parser === TYPESCRIPT_PARSER) {
+      await this.addDependencies([ "typescript" ]);
+      await this.addDevDependencies([
+        "@typescript-eslint/parser",
+        "@typescript-eslint/eslint-plugin"
       ]);
     }
   }

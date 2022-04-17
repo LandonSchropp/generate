@@ -1,6 +1,8 @@
-module.exports = {<% if (babel) { %>
-  parser: "@babel/eslint-parser",<% } %>
-  extends: [ "@landonschropp"<%- react ? ', "@landonschropp/react"' : '' %> ],<% if (!babel) { %>
+module.exports = {<% if (parser !== "None") { %>
+  parser: "<%- parser === "Babel" ? "@babel/eslint-parser" : "@typescript-eslint/parser" %>",<% } %><% if (parser === "TypeScript") { %>
+  plugins: [ "@typescript-eslint" ],<% } %>
+  extends: [ "@landonschropp"<%- react ? ', "@landonschropp/react"' : '' %><%- parser === "TypeScript" ? ', "plugin:@typescript-eslint/recommended"' : '' %> ],<% if (parser ===
+  "None") { %>
   parserOptions: {
     sourceType: "module",
     ecmaVersion: "latest"
