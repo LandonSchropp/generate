@@ -1,6 +1,6 @@
 {
   "name": "@landonschropp/generator-init",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "homepage": "https://github.com/LandonSchropp/yeoman-generators",
   "repository": "http://github.com/LandonSchropp/yeoman-generators",
   "description": "My personal Node.js initialization generator",
