@@ -12,5 +12,5 @@ necessary for a Babel environment.
 To use the generator, run the following command:
 
 ``` sh
-npx yo @landonschropp/babel
+npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
 ```

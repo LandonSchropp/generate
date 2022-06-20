@@ -12,5 +12,5 @@ necessary to set up ESLint using my personal configuration.
 To use the generator, run the following command:
 
 ``` sh
-npx yo @landonschropp/eslint
+npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
 ```

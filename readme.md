@@ -6,11 +6,11 @@ projects easy and enjoyable.
 ## TL/DR
 
 ``` bash
-npx yo @landonschropp/init
-npx yo @landonschropp/babel
-npx yo @landonschropp/eslint
-npx yo @landonschropp/language-server
-npx yo @landonschropp/jest
+npx -p yo -p @landonschropp/generator-init yo @landonschropp/init
+npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
+npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
+npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
+npx -p yo -p @landonschropp/generator-jest yo @landonschropp/jest
 ```
 
 ## The Generators

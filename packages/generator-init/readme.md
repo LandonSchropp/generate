@@ -13,5 +13,5 @@ than `yarn init`.
 To use the generator, run the following command:
 
 ``` sh
-npx yo @landonschropp/package
+npx -p yo -p @landonschropp/generator-init yo @landonschropp/init
 ```
