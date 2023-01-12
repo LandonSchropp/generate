@@ -1,5 +1,4 @@
 module.exports = {
-  clearMocks: true,
   testEnvironment: <%- react ? '"jsdom"' : '"node"' %>,
-  "setupFilesAfterEnv": [ "<rootDir>/test/jest.setup.js" ]
+  "setupFilesAfterEnv": [ "jest-extended/all", "<rootDir>/test/jest.setup.js" ]
 };

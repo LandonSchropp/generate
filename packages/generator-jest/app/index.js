@@ -1,13 +1,18 @@
 const Generator = require("yeoman-generator");
 
+const BABEL_PARSER = "Babel";
+const TYPESCRIPT_PARSER = "TypeScript";
+const NONE_PARSER = "None";
+
 module.exports = class JestGenerator extends Generator {
 
   async prompting() {
     Object.assign(this, await this.prompt([
       {
-        type: "confirm",
-        name: "babel",
-        message: "Would you like to use Babel with Jest?"
+        type: "list",
+        name: "parser",
+        message: "Which parser would you like to use?",
+        choices: [ BABEL_PARSER, TYPESCRIPT_PARSER, NONE_PARSER ]
       },
       {
         type: "confirm",
@@ -18,10 +23,19 @@ module.exports = class JestGenerator extends Generator {
   }
 
   async install() {
-    await this.addDevDependencies([ "jest" ]);
+    await this.addDevDependencies([
+      "jest",
+      "jest-dom",
+      "jest-environment-jsdom",
+      "jest-extended"
+    ]);
 
-    if (this.babel) {
+    if (this.parser === BABEL_PARSER) {
       await this.addDevDependencies([ "babel-jest" ]);
+    }
+
+    if (this.parser === TYPESCRIPT_PARSER) {
+      await this.addDevDependencies([ "ts-jest", "ts-node" ]);
     }
 
     if (this.react) {
@@ -30,17 +44,32 @@ module.exports = class JestGenerator extends Generator {
   }
 
   writing() {
-    this.fs.copyTpl(
-      this.templatePath("jest.config.js.ejs"),
-      this.destinationPath("jest.config.js"),
-      this
-    );
+    if (this.parser === TYPESCRIPT_PARSER) {
+      this.fs.copyTpl(
+        this.templatePath("jest.config.ts.ejs"),
+        this.destinationPath("jest.config.ts"),
+        this
+      );
 
-    this.fs.copyTpl(
-      this.templatePath("jest.setup.js.ejs"),
-      this.destinationPath("test/jest.setup.js"),
-      this
-    );
+      this.fs.copyTpl(
+        this.templatePath("jest.setup.js.ejs"),
+        this.destinationPath("test/jest.setup.ts"),
+        this
+      );
+    }
+    else {
+      this.fs.copyTpl(
+        this.templatePath("jest.config.js.ejs"),
+        this.destinationPath("jest.config.js"),
+        this
+      );
+
+      this.fs.copyTpl(
+        this.templatePath("jest.setup.js.ejs"),
+        this.destinationPath("test/jest.setup.js"),
+        this
+      );
+    }
   }
 
   end() {

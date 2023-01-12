@@ -14,7 +14,7 @@ const wrappedIt = (description, func) => {
 };
 
 global.it = new Proxy(wrappedIt, {
-  get: (target, prop) => {
+  get: (_target, prop) => {
     return it[prop];
   }
 });<% if (react) { %>
