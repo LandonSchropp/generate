@@ -52,7 +52,7 @@ module.exports = class JestGenerator extends Generator {
       );
 
       this.fs.copyTpl(
-        this.templatePath("jest.setup.js.ejs"),
+        this.templatePath("jest.setup.ts.ejs"),
         this.destinationPath("test/jest.setup.ts"),
         this
       );
