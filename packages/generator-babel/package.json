@@ -1,6 +1,6 @@
 {
   "name": "@landonschropp/generator-babel",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "homepage": "https://github.com/LandonSchropp/yeoman-generators",
   "repository": "http://github.com/LandonSchropp/yeoman-generators",
   "description": "My personal Babel Yeoman generator",
