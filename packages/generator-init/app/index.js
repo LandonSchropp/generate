@@ -50,7 +50,7 @@ module.exports = class InitGenerator extends Generator {
       {
         type: "confirm",
         name: "modules",
-        message: "Would you like to use ES modules? (This isn't necessary if you're using Babel.)",
+        message: "Would you like to use ES modules?",
         default: true
       },
       {
