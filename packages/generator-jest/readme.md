@@ -12,5 +12,5 @@ necessary for a Jest test environment.
 To use the generator, run the following command:
 
 ``` sh
-npx -p yo -p @landonschropp/generator-jest yo @landonschropp/jest
+npx yo @landonschropp/jest
 ```

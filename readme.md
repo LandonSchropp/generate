@@ -6,11 +6,11 @@ projects easy and enjoyable.
 ## TL/DR
 
 ``` bash
-npx -p yo -p @landonschropp/generator-init yo @landonschropp/init
-npx -p yo -p @landonschropp/generator-babel yo @landonschropp/babel
-npx -p yo -p @landonschropp/generator-eslint yo @landonschropp/eslint
-npx -p yo -p @landonschropp/generator-language-server yo @landonschropp/language-server
-npx -p yo -p @landonschropp/generator-jest yo @landonschropp/jest
+npx yo @landonschropp/init
+npx yo @landonschropp/typescript
+npx yo @landonschropp/eslint
+npx yo @landonschropp/language-server
+npx yo @landonschropp/jest
 ```
 
 ## The Generators
@@ -19,9 +19,8 @@ This project includes several generators.
 
 * [generator-init](packages/generator-init/readme.md): Sets up a brand-new Node.js repository. This
   is similar to `yarn init`, but it includes different configuration and a few extras.
-* [generator-babel](packages/generator-babel/readme.md): Sets up Babel and optionally installs a few
-  useful plugins I use often.
-* [generator-eslint](packages/generator-eslint/readme.md): Adds my personal ESLint configuration to
+* [generator-typescript](packages/generator-typescript/readme.md): Sets up TypeScript.
+* [generator-eslint](packages/generator-eslint/readme.md): Adds my ESLint configuration to
   a project.
 * [generator-language-server](packages/generator-language-server/readme.md): Configures a JavaScript
   language server.
