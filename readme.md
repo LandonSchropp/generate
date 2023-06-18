@@ -1,7 +1,7 @@
 # Landon Schropp's Yeoman Generators
 
-This is my personal, *opinionated* collection of Yeoman generators to make spinning up JavaScript
-projects easy and enjoyable.
+This is my personal, *opinionated* collection of Yeoman generators to make spinning up and
+configuring TypeScript projects easy and enjoyable.
 
 ## TL/DR
 
@@ -9,7 +9,6 @@ projects easy and enjoyable.
 npx yo @landonschropp/init
 npx yo @landonschropp/typescript
 npx yo @landonschropp/eslint
-npx yo @landonschropp/language-server
 npx yo @landonschropp/jest
 ```
 
@@ -22,8 +21,6 @@ This project includes several generators.
 * [generator-typescript](packages/generator-typescript/readme.md): Sets up TypeScript.
 * [generator-eslint](packages/generator-eslint/readme.md): Adds my ESLint configuration to
   a project.
-* [generator-language-server](packages/generator-language-server/readme.md): Configures a JavaScript
-  language server.
 * [generator-jest](packages/generator-language-server/readme.md): Configures a Jest testing
   environment.
 
