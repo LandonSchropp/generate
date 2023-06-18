@@ -2,26 +2,18 @@ const Generator = require("yeoman-generator");
 
 module.exports = class TypeScriptGenerator extends Generator {
 
-  async prompting() {
-    Object.assign(this, await this.prompt([
-      {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?"
-      },
-      {
-        type: "input",
-        name: "source",
-        message: "What's the name of your source directory?",
-        default: "source"
-      }
-    ]));
+  get packageJson() {
+    return this.fs.readJSON(this.destinationPath("package.json")) ?? {};
+  }
+
+  get isReactProject() {
+    return !!this.packageJson?.dependencies?.react;
   }
 
   async install() {
     await this.addDependencies([ "typescript" ]);
 
-    if (!this.react) {
+    if (!this.isReactProject) {
       await this.addDevDependencies([ "@types/node" ]);
     }
   }
@@ -31,10 +23,10 @@ module.exports = class TypeScriptGenerator extends Generator {
       compilerOptions: {
         target: "esnext",
         lib: [
-          ...this.react ? [ "dom" ] : [],
+          ...this.isReactProject ? [ "dom" ] : [],
           "esnext"
         ],
-        ...this.react ? { jsx: "react" } : {},
+        ...this.isReactProject ? { jsx: "react" } : {},
         module: "esnext",
         moduleResolution: "node",
         esModuleInterop: true,
@@ -50,10 +42,6 @@ module.exports = class TypeScriptGenerator extends Generator {
         resolveJsonModule: true,
         isolatedModules: true
       },
-      include: [
-        `./${ this.source }/**/*`,
-        "./test/**/*"
-      ],
       exclude: [
         "node_modules"
       ]
