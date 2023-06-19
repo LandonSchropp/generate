@@ -1,25 +1,24 @@
 const Generator = require("yeoman-generator");
 
-const BABEL_PARSER = "Babel";
-const TYPESCRIPT_PARSER = "TypeScript";
-const NONE_PARSER = "None";
-
 module.exports = class JestGenerator extends Generator {
 
-  async prompting() {
-    Object.assign(this, await this.prompt([
-      {
-        type: "list",
-        name: "parser",
-        message: "Which parser would you like to use?",
-        choices: [ BABEL_PARSER, TYPESCRIPT_PARSER, NONE_PARSER ]
-      },
-      {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?"
-      }
-    ]));
+  get packageJson() {
+    return this.fs.readJSON(this.destinationPath("package.json"));
+  }
+
+  get dependencies() {
+    return {
+      ...this.pacckageJson?.dependencies ?? {},
+      ...this.pacckageJson?.devDependencies ?? {}
+    };
+  }
+
+  get isReactProject() {
+    return !!this.dependencies.react;
+  }
+
+  get isTypeScriptProject() {
+    return !!this.dependencies.typescript;
   }
 
   async install() {
@@ -30,21 +29,17 @@ module.exports = class JestGenerator extends Generator {
       "jest-extended"
     ]);
 
-    if (this.parser === BABEL_PARSER) {
-      await this.addDevDependencies([ "babel-jest" ]);
-    }
-
-    if (this.parser === TYPESCRIPT_PARSER) {
+    if (this.isTypeScriptProject) {
       await this.addDevDependencies([ "ts-jest", "ts-node" ]);
     }
 
-    if (this.react) {
+    if (this.isReactProject) {
       await this.addDevDependencies([ "@testing-library/dom", "@testing-library/jest-dom" ]);
     }
   }
 
   writing() {
-    if (this.parser === TYPESCRIPT_PARSER) {
+    if (this.isTypeScriptProject) {
       this.fs.copyTpl(
         this.templatePath("jest.config.ts.ejs"),
         this.destinationPath("jest.config.ts"),
@@ -77,8 +72,8 @@ module.exports = class JestGenerator extends Generator {
       "add",
       "package.json",
       "yarn.lock",
-      "jest.config.js",
-      "test/jest.setup.js"
+      "jest.config.*",
+      "test/jest.setup.*"
     ]);
 
     this.spawnCommandSync("git", [ "commit", "-m", "Add Jest" ]);
