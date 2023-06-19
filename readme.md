@@ -8,8 +8,8 @@ configuring TypeScript projects easy and enjoyable.
 ``` bash
 npx yo @landonschropp/init
 npx yo @landonschropp/typescript
-npx yo @landonschropp/eslint
 npx yo @landonschropp/jest
+npx yo @landonschropp/eslint
 ```
 
 ## The Generators
@@ -19,13 +19,17 @@ This project includes several generators.
 * [generator-init](packages/generator-init/readme.md): Sets up a brand-new Node.js repository. This
   is similar to `yarn init`, but it includes different configuration and a few extras.
 * [generator-typescript](packages/generator-typescript/readme.md): Sets up TypeScript.
-* [generator-eslint](packages/generator-eslint/readme.md): Adds my ESLint configuration to
-  a project.
 * [generator-jest](packages/generator-language-server/readme.md): Configures a Jest testing
   environment.
+* [generator-eslint](packages/generator-eslint/readme.md): Adds my ESLint configuration to
+  a project.
 
-Run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX allows you to run the
-generator once without having to install anything. Answer the generator's prompts, and you're done!
+These generators a built to prompt as little as possible, so they tend to use the package.json file
+to determine their configuration. Make sure you have your core tools installed (such as React)
+before running the generators that depend on them.
+
+You can run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX allows you to 
+run the generator once without having to install anything. 
 
 ``` sh
 npx yo @landonschropp/<generator>
@@ -37,7 +41,8 @@ You can also see the documentation and options for each generator by including t
 npx @landonschropp/eslint --help
 ```
 
-You can run any of these generators independently.
+You can run any of these generators independently, but if you're running more than one do so in the
+order listed above.
 
 ## Development
 
