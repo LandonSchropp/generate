@@ -16,6 +16,10 @@ module.exports = class TypeScriptGenerator extends Generator {
     return !!this.dependencies.react;
   }
 
+  get isJestProject() {
+    return !!this.dependencies.jest;
+  }
+
   async install() {
     await this.addDependencies([ "typescript" ]);
 

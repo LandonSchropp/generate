@@ -8,7 +8,7 @@ module.exports = {<% if (isTypeScriptProject) { %>
   },<% } %>
   env: {
     es6: true,
-    <%= isReactProject ? 'browser' : 'node' %>: true,
-    jest: true
+    <%= isReactProject ? 'browser' : 'node' %>: true<% if (isJestProject) { %>,
+    jest: true<% } %>
   }
 };
