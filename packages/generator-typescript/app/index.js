@@ -1,13 +1,19 @@
 const Generator = require("yeoman-generator");
 
 module.exports = class TypeScriptGenerator extends Generator {
-
   get packageJson() {
-    return this.fs.readJSON(this.destinationPath("package.json")) ?? {};
+    return this.fs.readJSON(this.destinationPath("package.json"));
+  }
+
+  get dependencies() {
+    return {
+      ...this.pacckageJson?.dependencies ?? {},
+      ...this.pacckageJson?.devDependencies ?? {}
+    };
   }
 
   get isReactProject() {
-    return !!this.packageJson?.dependencies?.react;
+    return !!this.dependencies.react;
   }
 
   async install() {

@@ -1,15 +1,14 @@
-module.exports = {<% if (parser !== "None") { %>
-  parser: "<%- parser === "Babel" ? "@babel/eslint-parser" : "@typescript-eslint/parser" %>",<% } %><% if (parser === "TypeScript") { %>
+module.exports = {<% if (isTypeScriptProject) { %>
+  parser: "@typescript-eslint/parser" %>",
   plugins: [ "@typescript-eslint" ],<% } %>
-  extends: [ "@landonschropp"<%- react ? ', "@landonschropp/react"' : '' %><%- parser === "TypeScript" ? ', "plugin:@typescript-eslint/recommended"' : '' %> ],<% if (parser ===
-  "None") { %>
+  extends: [ "@landonschropp"<%- isReactProject ? ', "@landonschropp/react"' : '' %><%- isTypeScriptProject ? ', "plugin:@typescript-eslint/recommended"' : '' %> ],<% if (!isTypeScriptProject) { %>
   parserOptions: {
     sourceType: "module",
     ecmaVersion: "latest"
   },<% } %>
   env: {
     es6: true,
-    <%= browser ? 'browser' : 'node' %>: true,
+    <%= isReactProject ? 'browser' : 'node' %>: true,
     jest: true
   }
 };
