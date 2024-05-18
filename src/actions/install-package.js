@@ -1,6 +1,7 @@
 import { execa } from "execa";
+import { pathExists } from "fs-extra";
 
-export default async (_answers, { name, dev }) => {
+export default async (_answers, { name, dev }, plop) => {
   if (!(await pathExists("pnpm-lock.yaml"))) {
     throw "The installPackage action currently only works with pnpm.";
   }
@@ -10,10 +11,10 @@ export default async (_answers, { name, dev }) => {
   }
 
   try {
-    await execa("pnpm", ["install", ...(dev ? ["--dev"] : []), name]);
-  } catch {
-    throw `Failed to install package ${name}.`;
+    await execa("pnpm", ["add", ...(dev ? ["--save-dev"] : []), name]);
+  } catch (error) {
+    throw `Failed to install package ${name}:\n\n${error.message}`;
   }
 
-  return `Installed package ${name}.`;
+  return `Installed "${name}".`;
 };
