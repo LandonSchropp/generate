@@ -7,8 +7,8 @@ module.exports = class ESLintGenerator extends Generator {
 
   get dependencies() {
     return {
-      ...this.pacckageJson?.dependencies ?? {},
-      ...this.pacckageJson?.devDependencies ?? {}
+      ...(this.pacckageJson?.dependencies ?? {}),
+      ...(this.pacckageJson?.devDependencies ?? {}),
     };
   }
 
@@ -21,25 +21,21 @@ module.exports = class ESLintGenerator extends Generator {
   }
 
   async install() {
-    await this.addDevDependencies([
-      "eslint",
-      "eslint_d",
-      "@landonschropp/eslint-config"
-    ]);
+    await this.addDevDependencies(["eslint", "eslint_d", "@landonschropp/eslint-config"]);
 
     if (this.isReactProject) {
       await this.addDevDependencies([
         "@landonschropp/eslint-config-react",
         "eslint-plugin-react",
-        "eslint-plugin-react-hooks"
+        "eslint-plugin-react-hooks",
       ]);
     }
 
     if (this.isTypeScriptProject) {
-      await this.addDependencies([ "typescript" ]);
+      await this.addDependencies(["typescript"]);
       await this.addDevDependencies([
         "@typescript-eslint/parser",
-        "@typescript-eslint/eslint-plugin"
+        "@typescript-eslint/eslint-plugin",
       ]);
     }
   }
@@ -48,18 +44,14 @@ module.exports = class ESLintGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath("eslintrc.js.ejs"),
       this.destinationPath(".eslintrc.js"),
-      this
+      this,
     );
 
-    this.fs.copy(
-      this.templatePath("eslintignore"),
-      this.destinationPath(".eslintignore")
-    );
+    this.fs.copy(this.templatePath("eslintignore"), this.destinationPath(".eslintignore"));
 
-    this.fs.extendJSON(
-      this.destinationPath("package.json"),
-      { scripts: { "lint": "eslint --max-warnings=0 ." } }
-    );
+    this.fs.extendJSON(this.destinationPath("package.json"), {
+      scripts: { lint: "eslint --max-warnings=0 ." },
+    });
   }
 
   end() {
@@ -68,9 +60,9 @@ module.exports = class ESLintGenerator extends Generator {
       ".eslintrc.js",
       ".eslintignore",
       "package.json",
-      "yarn.lock"
+      "yarn.lock",
     ]);
 
-    this.spawnCommandSync("git", [ "commit", "-m", "Add ESLint" ]);
+    this.spawnCommandSync("git", ["commit", "-m", "Add ESLint"]);
   }
 };

@@ -7,8 +7,8 @@ module.exports = class TypeScriptGenerator extends Generator {
 
   get dependencies() {
     return {
-      ...this.pacckageJson?.dependencies ?? {},
-      ...this.pacckageJson?.devDependencies ?? {}
+      ...(this.pacckageJson?.dependencies ?? {}),
+      ...(this.pacckageJson?.devDependencies ?? {}),
     };
   }
 
@@ -21,10 +21,10 @@ module.exports = class TypeScriptGenerator extends Generator {
   }
 
   async install() {
-    await this.addDependencies([ "typescript" ]);
+    await this.addDependencies(["typescript"]);
 
     if (!this.isReactProject) {
-      await this.addDevDependencies([ "@types/node" ]);
+      await this.addDevDependencies(["@types/node"]);
     }
   }
 
@@ -32,11 +32,8 @@ module.exports = class TypeScriptGenerator extends Generator {
     let tsconfig = {
       compilerOptions: {
         target: "esnext",
-        lib: [
-          ...this.isReactProject ? [ "dom" ] : [],
-          "esnext"
-        ],
-        ...this.isReactProject ? { jsx: "react" } : {},
+        lib: [...(this.isReactProject ? ["dom"] : []), "esnext"],
+        ...(this.isReactProject ? { jsx: "react" } : {}),
         module: "esnext",
         moduleResolution: "node",
         esModuleInterop: true,
@@ -50,18 +47,16 @@ module.exports = class TypeScriptGenerator extends Generator {
         noEmit: true,
         incremental: true,
         resolveJsonModule: true,
-        isolatedModules: true
+        isolatedModules: true,
       },
-      exclude: [
-        "node_modules"
-      ]
+      exclude: ["node_modules"],
     };
 
     this.fs.writeJSON(this.destinationPath("tsconfig.json"), tsconfig);
   }
 
   end() {
-    this.spawnCommandSync("git", [ "add", "tsconfig.json", "package.json", "yarn.lock" ]);
-    this.spawnCommandSync("git", [ "commit", "-m", "Add TypeScript" ]);
+    this.spawnCommandSync("git", ["add", "tsconfig.json", "package.json", "yarn.lock"]);
+    this.spawnCommandSync("git", ["commit", "-m", "Add TypeScript"]);
   }
 };

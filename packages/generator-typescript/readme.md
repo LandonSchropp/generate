@@ -11,6 +11,6 @@ necessary for a TypeScript environment.
 
 To use the generator, run the following command:
 
-``` sh
+```sh
 npx yo @landonschropp/typescript
 ```

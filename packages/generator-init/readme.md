@@ -12,6 +12,6 @@ than `yarn init`.
 
 To use the generator, run the following command:
 
-``` sh
+```sh
 npx yo @landonschropp/init
 ```

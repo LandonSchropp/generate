@@ -1,15 +1,14 @@
 const Generator = require("yeoman-generator");
 
 module.exports = class JestGenerator extends Generator {
-
   get packageJson() {
     return this.fs.readJSON(this.destinationPath("package.json"));
   }
 
   get dependencies() {
     return {
-      ...this.pacckageJson?.dependencies ?? {},
-      ...this.pacckageJson?.devDependencies ?? {}
+      ...(this.pacckageJson?.dependencies ?? {}),
+      ...(this.pacckageJson?.devDependencies ?? {}),
     };
   }
 
@@ -22,19 +21,14 @@ module.exports = class JestGenerator extends Generator {
   }
 
   async install() {
-    await this.addDevDependencies([
-      "jest",
-      "jest-dom",
-      "jest-environment-jsdom",
-      "jest-extended"
-    ]);
+    await this.addDevDependencies(["jest", "jest-dom", "jest-environment-jsdom", "jest-extended"]);
 
     if (this.isTypeScriptProject) {
-      await this.addDevDependencies([ "ts-jest", "ts-node" ]);
+      await this.addDevDependencies(["ts-jest", "ts-node"]);
     }
 
     if (this.isReactProject) {
-      await this.addDevDependencies([ "@testing-library/dom", "@testing-library/jest-dom" ]);
+      await this.addDevDependencies(["@testing-library/dom", "@testing-library/jest-dom"]);
     }
   }
 
@@ -43,26 +37,25 @@ module.exports = class JestGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath("jest.config.ts.ejs"),
         this.destinationPath("jest.config.ts"),
-        this
+        this,
       );
 
       this.fs.copyTpl(
         this.templatePath("jest.setup.ts.ejs"),
         this.destinationPath("test/jest.setup.ts"),
-        this
+        this,
       );
-    }
-    else {
+    } else {
       this.fs.copyTpl(
         this.templatePath("jest.config.js.ejs"),
         this.destinationPath("jest.config.js"),
-        this
+        this,
       );
 
       this.fs.copyTpl(
         this.templatePath("jest.setup.js.ejs"),
         this.destinationPath("test/jest.setup.js"),
-        this
+        this,
       );
     }
   }
@@ -73,9 +66,9 @@ module.exports = class JestGenerator extends Generator {
       "package.json",
       "yarn.lock",
       "jest.config.*",
-      "test/jest.setup.*"
+      "test/jest.setup.*",
     ]);
 
-    this.spawnCommandSync("git", [ "commit", "-m", "Add Jest" ]);
+    this.spawnCommandSync("git", ["commit", "-m", "Add Jest"]);
   }
 };
