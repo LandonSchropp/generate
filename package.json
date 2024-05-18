@@ -5,6 +5,7 @@
   "author": "Landon Schropp <schroppl@gmail.com>",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "keywords": [
     "generator"
   ],
@@ -12,6 +13,11 @@
     "set-up-example-project": "./bin/set-up-example-project"
   },
   "version": "0.1.1",
+  "dependencies": {
+    "execa": "^9.1.0",
+    "fs-extra": "^11.2.0",
+    "plop": "^4.0.1"
+  },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "prettier": "^3.2.5",
