@@ -1,0 +1,50 @@
+import globals from "globals";
+import javascript from "@eslint/js";
+{{#if jest}}
+import jest from "eslint-plugin-jest";
+{{/if}}
+import prettier from "eslint-config-prettier";
+{{#if react}}
+import react from "eslint-plugin-react/configs/recommended";
+{{/if}}
+{{#if typescript}}
+import typescript from "typescript-eslint";
+{{/if}}
+
+export default [
+  javascript.configs.recommended,
+  {{#if jest}}
+  {
+    files: ["**/*.test.{ {{~extensions~}} }"],
+    ...jest.configs['flat/recommended'],
+  },
+  {{/if}}
+  {{#if react}}
+  react,
+  {{/if}}
+  {{#if typescript}}
+  ...typescript.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {{/if}}
+  prettier,
+  {
+    files: ["**/*.{ {{~extensions~}} }"],
+    languageOptions: {
+      globals: {
+        {{#if browser}}
+        ...globals.browser,
+        {{/if}}
+        {{#if node}}
+        ...globals.node,
+        {{/if}}
+      }
+    }
+  },
+];

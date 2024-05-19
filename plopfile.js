@@ -1,4 +1,5 @@
 import addPackages from "./src/actions/add-packages.js";
+import eslint from "./src/eslint/index.js";
 import prettier from "./src/prettier/index.js";
 
 export default (plop) => {
@@ -8,4 +9,5 @@ export default (plop) => {
 
   // Generators
   prettier(plop);
+  eslint(plop);
 };
