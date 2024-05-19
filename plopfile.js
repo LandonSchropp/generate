@@ -1,10 +1,10 @@
-import installPackage from "./src/actions/install-package.js";
+import addPackages from "./src/actions/add-packages.js";
 import prettier from "./src/prettier/index.js";
 
 export default (plop) => {
   // Configuration
   plop.setWelcomeMessage("Landon Schropp's Generators");
-  plop.setActionType("installPackage", installPackage);
+  plop.setActionType("addPackages", addPackages);
 
   // Generators
   prettier(plop);
