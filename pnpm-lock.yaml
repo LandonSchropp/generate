@@ -11,9 +11,6 @@ dependencies:
   fs-extra:
     specifier: ^11.2.0
     version: 11.2.0
-  humanize-list:
-    specifier: ^1.0.1
-    version: 1.0.1
   plop:
     specifier: ^4.0.1
     version: 4.0.1
@@ -1187,10 +1184,6 @@ packages:
   /human-signals@7.0.0:
     resolution: {integrity: sha512-74kytxOUSvNbjrT9KisAbaTZ/eJwD/LrbM/kh5j0IhPuJzwuA19dWvniFGwBzN9rVjg+O/e+F310PjObDXS+9Q==}
     engines: {node: '>=18.18.0'}
-    dev: false
-
-  /humanize-list@1.0.1:
-    resolution: {integrity: sha512-4+p3fCRF21oUqxhK0yZ6yaSP/H5/wZumc7q1fH99RkW7Q13aAxDeP78BKjoR+6y+kaHqKF/JWuQhsNuuI2NKtA==}
     dev: false
 
   /iconv-lite@0.4.24:

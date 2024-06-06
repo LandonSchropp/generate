@@ -1,6 +1,6 @@
+import { humanizeList } from "../utilities/array";
 import { execa } from "execa";
 import { pathExists } from "fs-extra";
-import humanizeList from "humanize-list";
 
 export default async (_answers, { packages }) => {
   if (!(await pathExists("pnpm-lock.yaml"))) {
