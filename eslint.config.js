@@ -1,6 +1,6 @@
-import globals from "globals";
 import javascript from "@eslint/js";
 import prettier from "eslint-config-prettier";
+import globals from "globals";
 
 export default [
   javascript.configs.recommended,
@@ -10,7 +10,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
-      }
-    }
+      },
+    },
   },
 ];
