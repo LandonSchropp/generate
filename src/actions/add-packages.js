@@ -1,4 +1,5 @@
 import { humanizeList, compact } from "../utilities/array.js";
+import chalk from "chalk";
 import { execa } from "execa";
 import { pathExists } from "fs-extra";
 
@@ -49,10 +50,22 @@ async function addPackages(packages, dev) {
   return `Added ${dev ? "dev " : ""}packages ${humanizeList(packages)}`;
 }
 
-export default async (_answers, { packages }) => {
-  let regularNames = packages.filter(({ dev }) => !dev).map(({ name }) => name);
-  let devNames = packages.filter(({ dev }) => dev).map(({ name }) => name);
+function printAddPackagesMessage(name, names) {
+  if (names.length === 0) {
+    return;
+  }
 
-  await addPackages(regularNames, false);
-  await addPackages(devNames, true);
+  let list = names.map((name) => `- ${chalk.cyan(name)}`).join("\n");
+  console.log(`Adding ${name}:\n\n${list}\n`);
+}
+
+export default async (_answers, { packages }) => {
+  let dependencies = packages.filter(({ dev }) => !dev).map(({ name }) => name);
+  let devDependencies = packages.filter(({ dev }) => dev).map(({ name }) => name);
+
+  printAddPackagesMessage("dependencies", dependencies);
+  printAddPackagesMessage("devDependencies", devDependencies);
+
+  await addPackages(dependencies, false);
+  await addPackages(devDependencies, true);
 };
