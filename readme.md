@@ -1,7 +1,8 @@
-# Landon Schropp's Yeoman Generators
+# JavaScript/TypeScript Generators
 
-This is my personal, _opinionated_ collection of Yeoman generators to make spinning up and
-configuring TypeScript projects easy and enjoyable.
+This is a collection of generators for setting up JavaScript/TypeScript projects. It contains a
+variety of scripts to make it easy to configure my favorite tools according to my personal
+preferences.
 
 ## TL/DR
 

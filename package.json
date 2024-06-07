@@ -1,17 +1,13 @@
 {
   "name": "@landonschropp/generators",
-  "description": "A collection of Plop generators tailored to TypeScript development.",
+  "description": "A collection of generators for setting up JavaScript/TypeScript projects",
   "repository": "http://github.com/LandonSchropp/generators",
   "author": "Landon Schropp <schroppl@gmail.com>",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "keywords": [
     "generator"
   ],
-  "scripts": {
-    "set-up-example-project": "./bin/set-up-example-project"
-  },
   "version": "0.1.1",
   "dependencies": {
     "chalk": "^5.3.0",

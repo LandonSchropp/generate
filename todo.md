@@ -1,0 +1,8 @@
+- [ ] Add Git commands to generators
+- [ ] Add `package.json` scripts to generators
+- [ ] Add check to ensure there are no staged files or edits to the generator's files
+- [ ] Add Husky generator
+- [ ] Add init generator
+- [ ] Add Jest generator
+- [ ] Create wrapper binary
+- [ ] Deploy package
