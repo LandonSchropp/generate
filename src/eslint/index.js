@@ -39,20 +39,18 @@ export default (plop) => {
 
       let data = { typescript, react, jest, browser, node, extensions };
 
-      let names = [
-        "eslint",
-        "@eslint/js",
-        "eslint-config-prettier",
-        "globals",
-        ...(typescript ? ["typescript-eslint"] : []),
-        ...(react ? ["eslint-plugin-react"] : []),
-        ...(jest ? ["eslint-plugin-jest"] : []),
-      ];
-
       return [
         {
-          type: "installPackage",
-          names,
+          type: "addPackages",
+          packages: [
+            { name: "eslint", dev: true },
+            { name: "@eslint/js", dev: true },
+            { name: "eslint-config-prettier", dev: true },
+            { name: "globals", dev: true },
+            ...(typescript ? [{ name: "typescript-eslint", dev: true }] : []),
+            ...(react ? [{ name: "eslint-plugin-react", dev: true }] : []),
+            ...(jest ? [{ name: "eslint-plugin-jest", dev: true }] : []),
+          ],
           dev: true,
         },
         {
