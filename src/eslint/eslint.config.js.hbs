@@ -1,4 +1,3 @@
-import globals from "globals";
 import javascript from "@eslint/js";
 {{#if jest}}
 import jest from "eslint-plugin-jest";
@@ -7,6 +6,7 @@ import prettier from "eslint-config-prettier";
 {{#if react}}
 import react from "eslint-plugin-react/configs/recommended";
 {{/if}}
+import globals from "globals";
 {{#if typescript}}
 import typescript from "typescript-eslint";
 {{/if}}
@@ -44,7 +44,7 @@ export default [
         {{#if node}}
         ...globals.node,
         {{/if}}
-      }
-    }
+      },
+    },
   },
 ];
