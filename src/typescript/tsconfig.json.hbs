@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": {{#if node}}"nodenext"{{else}}"esnext"{{/if}},
+    {{#if reactOrBrowser}}
+    "moduleResolution": "bundler",
+    {{/if}}
+    "lib": [{{#if reactOrBrowser}}"dom", "dom.iterable", {{/if}}"esnext"],
+    {{#if react}}
+    "jsx": "react-jsx"
+    {{/if}}
+    {{#if emit}}
+    "declaration": true,
+    "outDir": "{{outDir}}",
+    {{else}}
+    "noEmit": true,
+    {{/if}}
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
