@@ -15,7 +15,7 @@ export default [
   javascript.configs.recommended,
   {{#if jest}}
   {
-    files: ["**/*.test.{ {{~extensions~}} }"],
+    files: ["**/*.test.{{extensions}}"],
     ...jest.configs['flat/recommended'],
   },
   {{/if}}
@@ -35,7 +35,7 @@ export default [
   {{/if}}
   prettier,
   {
-    files: ["**/*.{ {{~extensions~}} }"],
+    files: ["**/*.{{extensions}}"],
     languageOptions: {
       globals: {
         {{#if browser}}

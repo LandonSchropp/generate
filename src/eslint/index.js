@@ -35,7 +35,9 @@ export default (plop) => {
         ...(typescript ? ["ts"] : []),
         ...(react ? ["jsx"] : []),
         ...(typescript && react ? ["tsx"] : []),
-      ].join(",");
+      ];
+
+      extensions = extensions.length === 1 ? extensions[0] : `{${extensions.join(",")}}`;
 
       let data = { typescript, react, jest, browser, node, extensions };
 

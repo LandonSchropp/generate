@@ -6,7 +6,7 @@ export default [
   javascript.configs.recommended,
   prettier,
   {
-    files: ["**/*.{js}"],
+    files: ["**/*.js"],
     languageOptions: {
       globals: {
         ...globals.node,
