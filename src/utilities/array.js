@@ -9,3 +9,7 @@ export function humanizeList(list, connector = ", ", finalConnector = " and ") {
 
   return list.slice(0, -1).join(connector) + finalConnector + list.slice(-1);
 }
+
+export function compact(array) {
+  return array.filter((value) => value !== null && value !== undefined);
+}
