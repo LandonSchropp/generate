@@ -15,8 +15,17 @@ async function safeReadJson(path) {
 }
 
 /**
- * This action is like append, but instead reads the provided file as JSON, deep merges it with the
- * provided data, and the writes the result. If the file does not exist, the provided data is
+ * This action is like `add`, but instead of rendering a template, it writes the provided data to
+ * the path as a JSON file.
+ */
+export async function writeJSON(_answers, config, plop) {
+  let destinationPath = getDestinationPath(config, plop);
+  await writeJson(destinationPath, config.data, { spaces: 2 });
+}
+
+/**
+ * This action is like `append`, but instead reads the provided file as JSON, deep merges it with
+ * the provided data, and the writes the result. If the file does not exist, the provided data is
  * written to it.
  */
 export async function mergeJSON(_answers, config, plop) {

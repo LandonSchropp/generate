@@ -1,4 +1,4 @@
-import { mergeJSON } from "./src/actions/merge-json.js";
+import { writeJSON, mergeJSON } from "./src/actions/json.js";
 import { addPackages, executeWithPackageManager } from "./src/actions/package-manager.js";
 import eslint from "./src/eslint/index.js";
 import prettier from "./src/prettier/index.js";
@@ -12,6 +12,7 @@ export default (plop) => {
   plop.setActionType("addPackages", addPackages);
   plop.setActionType("executeWithPackageManager", executeWithPackageManager);
   plop.setActionType("mergeJSON", mergeJSON);
+  plop.setActionType("writeJSON", writeJSON);
 
   // Generators
   prettier(plop);
