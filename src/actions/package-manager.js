@@ -1,4 +1,4 @@
-import { humanizeList, compact } from "../utilities/array.js";
+import { compact } from "../utilities/array.js";
 import { detectPackageManager, packageManagerRunCommand } from "../utilities/package-manager.js";
 import chalk from "chalk";
 import { execa } from "execa";
@@ -18,6 +18,10 @@ async function addPackagesCommand(packages, dev) {
   }
 }
 
+function packageList(packages) {
+  return chalk.cyan(packages.join(", "));
+}
+
 async function runAddPackagesCommand(packages, dev) {
   if (packages.length === 0) {
     return;
@@ -28,10 +32,10 @@ async function runAddPackagesCommand(packages, dev) {
   try {
     await execa(command[0], command.slice(1));
   } catch (error) {
-    throw `Failed to add ${humanizeList(packages)}:\n\n${error.message}`;
+    throw `Failed to add ${packageList(packages)}:\n\n${chalk.red(error.message)}`;
   }
 
-  return `Added ${dev ? "dev " : ""}packages ${humanizeList(packages)}`;
+  return `Added ${dev ? "dev " : ""}packages ${packageList(packages)}`;
 }
 
 function printAddPackagesMessage(name, names) {
@@ -39,8 +43,7 @@ function printAddPackagesMessage(name, names) {
     return;
   }
 
-  let list = humanizeList(names.map((name) => `${chalk.cyan(name)}`));
-  console.log(`Adding ${name}: ${list}`);
+  console.log(`Adding ${name}: ${packageList(names)}`);
 }
 
 /**
@@ -69,6 +72,6 @@ export async function executeWithPackageManager(_answers, { command }) {
   try {
     await execa(runCommand[0], runCommand.slice(1));
   } catch (error) {
-    throw `Failed to run command \`${runCommand.join(" ")}\`:\n\n${error.message}`;
+    throw `Failed to run command \`${runCommand.join(" ")}\`:\n\n${chalk.red(error.message)}`;
   }
 }
