@@ -19,12 +19,12 @@ export function detectPackageManager() {
 export function packageManagerRunCommand() {
   switch (detectPackageManager()) {
     case "yarn":
-      return "yarn exec";
+      return ["yarn", "exec"];
     case "pnpm":
-      return "pnpm exec";
+      return ["pnpm", "exec"];
     case "bun":
-      return "bun run";
+      return ["bun", "run"];
     default:
-      return "npm run";
+      return ["npm", "run"];
   }
 }

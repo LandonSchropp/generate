@@ -13,11 +13,13 @@
     "chalk": "^5.3.0",
     "execa": "^9.1.0",
     "fs-extra": "^11.2.0",
-    "plop": "^4.0.1"
+    "plop": "^4.0.1",
+    "remeda": "^2.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/fs-extra": "^11.0.4",
     "eslint": "^9.3.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.2.0",

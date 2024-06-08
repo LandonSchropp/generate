@@ -60,6 +60,10 @@ export async function addPackages(_answers, { packages }) {
 
 /** This action runs a command with the package manager's run/exec command. */
 export async function executeWithPackageManager(_answers, { command }) {
+  if (typeof command === "string") {
+    command = command.trim().split(/\s+/);
+  }
+
   let runCommand = [...packageManagerRunCommand(), ...command];
 
   try {
