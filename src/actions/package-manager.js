@@ -1,10 +1,10 @@
 import { humanizeList, compact } from "../utilities/array.js";
-import { detectPackageManager } from "../utilities/package-manager.js";
+import { detectPackageManager, packageManagerRunCommand } from "../utilities/package-manager.js";
 import chalk from "chalk";
 import { execa } from "execa";
 
 async function addPackagesCommand(packages, dev) {
-  let packageManager = await detectPackageManager();
+  let packageManager = detectPackageManager();
 
   switch (packageManager) {
     case "yarn":
@@ -43,6 +43,10 @@ function printAddPackagesMessage(name, names) {
   console.log(`Adding ${name}:\n\n${list}\n`);
 }
 
+/**
+ * This action adds packages using the package manager. It takes an array of packages, each with a
+ * name and a dev boolean indicating whether it is a dev dependency.
+ */
 export async function addPackages(_answers, { packages }) {
   let dependencies = packages.filter(({ dev }) => !dev).map(({ name }) => name);
   let devDependencies = packages.filter(({ dev }) => dev).map(({ name }) => name);
@@ -54,8 +58,9 @@ export async function addPackages(_answers, { packages }) {
   await runAddPackagesCommand(devDependencies, true);
 }
 
+/** This action runs a command with the package manager's run/exec command. */
 export async function executeWithPackageManager(_answers, { command }) {
-  let runCommand = [await detectPackageManager(), "exec", ...command];
+  let runCommand = [...packageManagerRunCommand(), ...command];
 
   try {
     await execa(runCommand[0], runCommand.slice(1));

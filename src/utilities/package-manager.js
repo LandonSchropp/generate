@@ -1,17 +1,30 @@
-import { pathExists } from "fs-extra";
+import { existsSync } from "fs";
 
-export async function detectPackageManager() {
-  if (await pathExists("yarn.lock")) {
+export function detectPackageManager() {
+  if (existsSync("yarn.lock")) {
     return "yarn";
   }
 
-  if (await pathExists("pnpm-lock.yaml")) {
+  if (existsSync("pnpm-lock.yaml")) {
     return "pnpm";
   }
 
-  if (await pathExists("bun.lock")) {
+  if (existsSync("bun.lock")) {
     return "bun";
   }
 
   return "npm";
+}
+
+export function packageManagerRunCommand() {
+  switch (detectPackageManager()) {
+    case "yarn":
+      return "yarn exec";
+    case "pnpm":
+      return "pnpm exec";
+    case "bun":
+      return "bun run";
+    default:
+      return "npm run";
+  }
 }
