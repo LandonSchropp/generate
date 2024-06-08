@@ -4,7 +4,7 @@
 - [x] Add Husky generator
 - [ ] Add initialize generator
 - [ ] Add Jest generator
-- [ ] Add only-allow generator
+- [x] Add only-allow generator
 - [ ] Add default generator
 - [ ] Create wrapper binary
 - [ ] Deploy package
