@@ -61,6 +61,15 @@ export default (plop) => {
           force: true,
           data,
         },
+        {
+          type: "mergeJSON",
+          path: "package.json",
+          data: {
+            scripts: {
+              lint: "eslint .",
+            },
+          },
+        },
       ];
     },
   });
