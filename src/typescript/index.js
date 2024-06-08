@@ -20,13 +20,19 @@ export default (plop) => {
     ],
     actions: (answers) => {
       let { type, outDir } = answers;
+      let emit = outDir !== "";
 
       let data = {
         node: type === "node",
         react: type === "react",
         reactOrBrowser: type === "react" || type === "browser",
-        emit: outDir !== "",
+        emit,
         outDir,
+      };
+
+      let scripts = {
+        "check-types": "tsc --noEmit",
+        ...(emit ? { build: "tsc" } : {}),
       };
 
       return [
@@ -41,6 +47,11 @@ export default (plop) => {
           templateFile: "src/typescript/tsconfig.json.hbs",
           force: true,
           data,
+        },
+        {
+          type: "mergeJSON",
+          path: "package.json",
+          data: { scripts },
         },
       ];
     },
