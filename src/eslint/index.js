@@ -53,7 +53,6 @@ export default (plop) => {
             ...(react ? [{ name: "eslint-plugin-react", dev: true }] : []),
             ...(jest ? [{ name: "eslint-plugin-jest", dev: true }] : []),
           ],
-          dev: true,
         },
         {
           type: "add",
