@@ -34,7 +34,7 @@ async function addPackagesCommand(packages, dev) {
   }
 }
 
-async function addPackages(packages, dev) {
+async function runAddPackagesCommand(packages, dev) {
   if (packages.length === 0) {
     return;
   }
@@ -59,13 +59,23 @@ function printAddPackagesMessage(name, names) {
   console.log(`Adding ${name}:\n\n${list}\n`);
 }
 
-export default async (_answers, { packages }) => {
+export async function addPackages(_answers, { packages }) {
   let dependencies = packages.filter(({ dev }) => !dev).map(({ name }) => name);
   let devDependencies = packages.filter(({ dev }) => dev).map(({ name }) => name);
 
   printAddPackagesMessage("dependencies", dependencies);
   printAddPackagesMessage("devDependencies", devDependencies);
 
-  await addPackages(dependencies, false);
-  await addPackages(devDependencies, true);
-};
+  await runAddPackagesCommand(dependencies, false);
+  await runAddPackagesCommand(devDependencies, true);
+}
+
+export async function runWithPackageManager(_answers, { command }) {
+  let runCommand = [await detectPackageManager(), "run", ...command];
+
+  try {
+    await execa(runCommand[0], runCommand.slice(1));
+  } catch (error) {
+    throw `Failed to run command \`${runCommand.join(" ")}\`:\n\n${error.message}`;
+  }
+}
