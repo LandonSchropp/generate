@@ -1,6 +1,7 @@
 import { writeJSON, mergeJSON } from "./src/actions/json.js";
 import { addPackages, executeWithPackageManager } from "./src/actions/package-manager.js";
 import eslint from "./src/eslint/index.js";
+import husky from "./src/husky/index.js";
 import prettier from "./src/prettier/index.js";
 import typescript from "./src/typescript/index.js";
 
@@ -18,4 +19,5 @@ export default (plop) => {
   prettier(plop);
   eslint(plop);
   typescript(plop);
+  husky(plop);
 };
