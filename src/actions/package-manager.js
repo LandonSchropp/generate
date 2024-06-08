@@ -1,23 +1,7 @@
 import { humanizeList, compact } from "../utilities/array.js";
+import { detectPackageManager } from "../utilities/package-manager.js";
 import chalk from "chalk";
 import { execa } from "execa";
-import { pathExists } from "fs-extra";
-
-async function detectPackageManager() {
-  if (await pathExists("yarn.lock")) {
-    return "yarn";
-  }
-
-  if (await pathExists("pnpm-lock.yaml")) {
-    return "pnpm";
-  }
-
-  if (await pathExists("bun.lock")) {
-    return "bun";
-  }
-
-  return "npm";
-}
 
 async function addPackagesCommand(packages, dev) {
   let packageManager = await detectPackageManager();
@@ -70,8 +54,8 @@ export async function addPackages(_answers, { packages }) {
   await runAddPackagesCommand(devDependencies, true);
 }
 
-export async function runWithPackageManager(_answers, { command }) {
-  let runCommand = [await detectPackageManager(), "run", ...command];
+export async function executeWithPackageManager(_answers, { command }) {
+  let runCommand = [await detectPackageManager(), "exec", ...command];
 
   try {
     await execa(runCommand[0], runCommand.slice(1));
