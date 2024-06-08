@@ -39,8 +39,8 @@ function printAddPackagesMessage(name, names) {
     return;
   }
 
-  let list = names.map((name) => `- ${chalk.cyan(name)}`).join("\n");
-  console.log(`Adding ${name}:\n\n${list}\n`);
+  let list = humanizeList(names.map((name) => `${chalk.cyan(name)}`));
+  console.log(`Adding ${name}: ${list}`);
 }
 
 /**
