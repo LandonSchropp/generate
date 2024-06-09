@@ -9,7 +9,7 @@ export default (plop) => {
         {
           type: "mergeJSON",
           path: "package.json",
-          data: {
+          json: {
             scripts: {
               preinstall: `npx only-allow ${detectPackageManager()}`,
             },

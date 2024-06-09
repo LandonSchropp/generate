@@ -51,7 +51,7 @@ export default (plop) => {
         {
           type: "mergeJSON",
           path: "package.json",
-          data: { scripts },
+          json: { scripts },
         },
       ];
     },

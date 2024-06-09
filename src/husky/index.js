@@ -100,7 +100,7 @@ export default (plop) => {
         {
           type: "mergeJSON",
           path: "package.json",
-          data: {
+          json: {
             scripts: {
               prepare: "husky",
             },
