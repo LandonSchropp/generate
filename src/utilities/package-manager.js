@@ -1,5 +1,19 @@
 import { existsSync } from "fs";
 
+const PACKAGE_MANAGER_RUN_COMMANDS = {
+  yarn: ["yarn", "exec"],
+  pnpm: ["pnpm", "exec"],
+  bun: ["bun", "run"],
+  npm: ["npm", "run"],
+};
+
+const PACKAGE_MANAGER_INSTALL_COMMANDS = {
+  yarn: ["yarn", "install"],
+  pnpm: ["pnpm", "install"],
+  bun: ["bun", "install"],
+  npm: ["npm", "install"],
+};
+
 export function detectPackageManager() {
   if (existsSync("yarn.lock")) {
     return "yarn";
@@ -16,15 +30,10 @@ export function detectPackageManager() {
   return "npm";
 }
 
-export function packageManagerRunCommand() {
-  switch (detectPackageManager()) {
-    case "yarn":
-      return ["yarn", "exec"];
-    case "pnpm":
-      return ["pnpm", "exec"];
-    case "bun":
-      return ["bun", "run"];
-    default:
-      return ["npm", "run"];
-  }
+export function packageManagerRunCommand(packageManager = detectPackageManager()) {
+  return PACKAGE_MANAGER_RUN_COMMANDS[packageManager];
+}
+
+export function packageManagerInstallCommand(packageManager = detectPackageManager()) {
+  return PACKAGE_MANAGER_INSTALL_COMMANDS[packageManager];
 }

@@ -1,5 +1,9 @@
 import { compact } from "../utilities/array.js";
-import { detectPackageManager, packageManagerRunCommand } from "../utilities/package-manager.js";
+import {
+  detectPackageManager,
+  packageManagerInstallCommand,
+  packageManagerRunCommand,
+} from "../utilities/package-manager.js";
 import chalk from "chalk";
 import { execa } from "execa";
 
@@ -73,5 +77,19 @@ export async function executeWithPackageManager(_answers, { command }) {
     await execa(runCommand[0], runCommand.slice(1));
   } catch (error) {
     throw `Failed to run command \`${runCommand.join(" ")}\`:\n\n${chalk.red(error.message)}`;
+  }
+}
+
+/**
+ * This action runs the install command. It optionally takes a `packageManager` configuration
+ * option, but if omitted it will run against the detected package manager.
+ */
+export async function installPackages(_answers, { packageManager }) {
+  let installCommand = packageManagerInstallCommand(packageManager);
+
+  try {
+    await execa(installCommand[0], installCommand.slice(1));
+  } catch (error) {
+    throw `Failed to install packages:\n\n${chalk.red(error.message)}`;
   }
 }

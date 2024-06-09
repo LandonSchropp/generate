@@ -1,5 +1,9 @@
 import { writeJSON, mergeJSON } from "./src/actions/json.js";
-import { addPackages, executeWithPackageManager } from "./src/actions/package-manager.js";
+import {
+  addPackages,
+  executeWithPackageManager,
+  installPackages,
+} from "./src/actions/package-manager.js";
 import eslint from "./src/eslint/index.js";
 import husky from "./src/husky/index.js";
 import onlyAllow from "./src/only-allow/index.js";
@@ -13,6 +17,7 @@ export default (plop) => {
   // Actions
   plop.setActionType("addPackages", addPackages);
   plop.setActionType("executeWithPackageManager", executeWithPackageManager);
+  plop.setActionType("installPackages", installPackages);
   plop.setActionType("mergeJSON", mergeJSON);
   plop.setActionType("writeJSON", writeJSON);
 
