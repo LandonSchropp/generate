@@ -5,6 +5,7 @@
   "author": "Landon Schropp <schroppl@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "private": false,
   "keywords": [
     "generator"
   ],
