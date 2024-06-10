@@ -116,7 +116,7 @@ export default (plop) => {
         {
           type: "writeJSON",
           path: ".lintstagedrc.json",
-          data: checks,
+          json: checks,
         },
         {
           type: "executeWithPackageManager",

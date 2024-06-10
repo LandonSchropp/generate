@@ -20,7 +20,7 @@ async function safeReadJson(path) {
  */
 export async function writeJSON(_answers, config, plop) {
   let destinationPath = getDestinationPath(config, plop);
-  await writeJson(destinationPath, config.data, { spaces: 2 });
+  await writeJson(destinationPath, config.json, { spaces: 2 });
 }
 
 /**
