@@ -63,6 +63,8 @@ export async function addPackages(_answers, { packages }) {
 
   await runAddPackagesCommand(dependencies, false);
   await runAddPackagesCommand(devDependencies, true);
+
+  return `Added packages: ${packageList(packages.map(({ name }) => name))}`;
 }
 
 /** This action runs a command with the package manager's run/exec command. */
@@ -78,6 +80,8 @@ export async function executeWithPackageManager(_answers, { command }) {
   } catch (error) {
     throw `Failed to run command \`${runCommand.join(" ")}\`:\n\n${chalk.red(error.message)}`;
   }
+
+  return `Ran command: ${chalk.cyan(command.join(" "))}`;
 }
 
 /**
@@ -92,4 +96,6 @@ export async function installPackages(_answers, { packageManager }) {
   } catch (error) {
     throw `Failed to install packages:\n\n${chalk.red(error.message)}`;
   }
+
+  return `Installed packages`;
 }

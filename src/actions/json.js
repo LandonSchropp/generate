@@ -21,6 +21,8 @@ async function safeReadJson(path) {
 export async function writeJSON(_answers, config, plop) {
   let destinationPath = getDestinationPath(config, plop);
   await writeJson(destinationPath, config.json, { spaces: 2 });
+
+  return `Wrote JSON to ${destinationPath}`;
 }
 
 /**
@@ -33,4 +35,6 @@ export async function mergeJSON(_answers, config, plop) {
   let json = mergeDeep(await safeReadJson(destinationPath), config.json);
 
   await writeJson(destinationPath, json, { spaces: 2 });
+
+  return `Merged JSON to ${destinationPath}`;
 }
