@@ -2,8 +2,8 @@
 - [x] Add Husky generator
 - [x] Add initialize generator
 - [x] Add only-allow generator
-- [ ] Add Git commands to generators
-- [ ] Add Git safety check to ensure there are no staged files or edits to the generator's files
+- [x] Add Git commands to generators
+- [x] Add Git safety check to ensure there are no staged files or edits to the generator's files
 - [ ] Create wrapper binary
 - [ ] Deploy package
 - [ ] Update documentation
