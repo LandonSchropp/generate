@@ -1,85 +1,31 @@
 # JavaScript/TypeScript Generators
 
-This is a collection of generators for setting up JavaScript/TypeScript projects. It contains a
-variety of scripts to make it easy to configure my favorite tools according to my personal
-preferences.
+This is a collection of generators for setting up JavaScript/TypeScript projects.
 
 ## TL/DR
 
 ```bash
-npx yo @landonschropp/init
-npx yo @landonschropp/typescript
-npx yo @landonschropp/jest
-npx yo @landonschropp/eslint
+npx -p @landonschropp/generators generate
 ```
 
 ## The Generators
 
 This project includes several generators.
 
-- [generator-init](packages/generator-init/readme.md): Sets up a brand-new Node.js repository. This
-  is similar to `yarn init`, but it includes different configuration and a few extras.
-- [generator-typescript](packages/generator-typescript/readme.md): Sets up TypeScript.
-- [generator-jest](packages/generator-language-server/readme.md): Configures a Jest testing
-  environment.
-- [generator-eslint](packages/generator-eslint/readme.md): Adds my ESLint configuration to
-  a project.
+- `init`: Sets up a brand-new Node.js repository. This is similar to `pnpm init`, but includes
+  different options.
+- `pretter`: Installs and configures [Prettier](https://prettier.io/).
+- `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
+- `eslint`: Installs and configures [ESLint](https://eslint.org/).
+- `typescript`: Installs and configures [TypeScript](https://typescriptlang.org/).
+- `husky`: Installs and configures [Husky](https://typicode.github.io/husky/) and
+  [lint-staged](https://www.npmjs.com/package/lint-staged).
 
-These generators a built to prompt as little as possible, so they tend to use the package.json file
-to determine their configuration. Make sure you have your core tools installed (such as React)
-before running the generators that depend on them.
-
-You can run the generator of your choice with [NPX](https://github.com/zkat/npx). NPX allows you to
-run the generator once without having to install anything.
+You can run a specific generator via [NPX](https://github.com/zkat/npx) like this:
 
 ```sh
-npx yo @landonschropp/<generator>
-```
-
-You can also see the documentation and options for each generator by including the `--help` flag.
-
-```sh
-npx @landonschropp/eslint --help
+npx -p @landonschropp/generators generate <generator>
 ```
 
 You can run any of these generators independently, but if you're running more than one do so in the
 order listed above.
-
-## Development
-
-### Updating
-
-This repo uses Yarn workspaces, so updating all of the packages is easy.
-
-```
-yarn upgrade-interactive --latest
-```
-
-### Publishing
-
-Publishing all of the packages is also a breeze thanks to Lerna. First, make sure the
-`NPM_TOKEN` environment variable is set. Then, all you need to do is run the following command.
-
-```sh
-lerna publish
-```
-
-### Example Project
-
-While developing a generator, it's common to create an empty directory to run the generator in.
-Because this is done so frequently, this repository includes a handy script that does this
-automatically.
-
-```sh
-yarn set-up-example-project
-```
-
-This script does a few things for you:
-
-- It automatically runs `yarn install` so you don't have to.
-- It creates a new `example` directory, sets it up as a Node package, and initializes a Git
-  repository so you can any changes your package may introduce.
-- It links all of the packages in the `packages` directory via Yarn.
-
-Once the script is done, all you need to do is change into the `example` directory and run
-`yo @landonschropp/<generator>` to test out one of the generators.

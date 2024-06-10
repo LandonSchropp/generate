@@ -1,9 +1,0 @@
-- [x] Add `package.json` scripts to generators
-- [x] Add Husky generator
-- [x] Add initialize generator
-- [x] Add only-allow generator
-- [x] Add Git commands to generators
-- [x] Add Git safety check to ensure there are no staged files or edits to the generator's files
-- [ ] Create wrapper binary
-- [ ] Deploy package
-- [ ] Update documentation
