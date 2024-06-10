@@ -1,8 +1,13 @@
+import { packageManagerLockFile } from "../utilities/package-manager";
+
 export default (plop) => {
   plop.setGenerator("prettier", {
     description: "Sets up Prettier",
     prompts: [],
     actions: [
+      {
+        type: "gitSafetyCheck",
+      },
       {
         type: "addPackages",
         packages: [
@@ -22,6 +27,11 @@ export default (plop) => {
         path: ".prettierignore",
         templateFile: "src/prettier/.prettierignore",
         force: true,
+      },
+      {
+        type: "gitCommit",
+        message: "Set up Prettier",
+        files: ["package.json", packageManagerLockFile(), ".prettierrc", ".prettierignore"],
       },
     ],
   });

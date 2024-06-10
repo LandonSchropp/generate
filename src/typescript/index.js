@@ -1,3 +1,5 @@
+import { packageManagerLockFile } from "../utilities/package-manager";
+
 export default (plop) => {
   plop.setGenerator("typescript", {
     description: "Sets up TypeScript (tsconfig.json)",
@@ -37,6 +39,9 @@ export default (plop) => {
 
       return [
         {
+          type: "gitSafetyCheck",
+        },
+        {
           type: "addPackages",
           packages: [{ name: "typescript", dev: true }],
           dev: true,
@@ -52,6 +57,11 @@ export default (plop) => {
           type: "mergeJSON",
           path: "package.json",
           json: { scripts },
+        },
+        {
+          type: "gitCommit",
+          message: "Set up TypeScript",
+          files: ["package.json", packageManagerLockFile(), "tsconfig.json"],
         },
       ];
     },

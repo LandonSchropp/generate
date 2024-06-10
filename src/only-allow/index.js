@@ -7,6 +7,9 @@ export default (plop) => {
     actions: () => {
       return [
         {
+          type: "gitSafetyCheck",
+        },
+        {
           type: "mergeJSON",
           path: "package.json",
           json: {
@@ -14,6 +17,11 @@ export default (plop) => {
               preinstall: `npx only-allow ${detectPackageManager()}`,
             },
           },
+        },
+        {
+          type: "gitCommit",
+          message: "Set up only-allow",
+          files: ["package.json"],
         },
       ];
     },

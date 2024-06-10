@@ -1,4 +1,5 @@
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
+import { packageManagerLockFile } from "../utilities/package-manager.js";
 import { readJson } from "fs-extra/esm";
 import { dirname } from "path";
 
@@ -96,6 +97,9 @@ export default async (plop) => {
 
       return [
         {
+          type: "gitSafetyCheck",
+        },
+        {
           type: "mergeJSON",
           path: "package.json",
           json: packageJson,
@@ -103,6 +107,11 @@ export default async (plop) => {
         {
           type: "installPackages",
           packageManager: answers.packageManager,
+        },
+        {
+          type: "gitCommit",
+          files: ["package.json", packageManagerLockFile(answers.packageManager)],
+          message: "Initialize package",
         },
       ];
     },

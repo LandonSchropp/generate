@@ -1,3 +1,5 @@
+import { packageManagerLockFile } from "../utilities/package-manager";
+
 const PLUGINS_MESSAGE = "Which ESLint plugins do you want to use?";
 const GLOBALS_MESSAGE = "Which globals would you like to include?";
 
@@ -43,6 +45,9 @@ export default (plop) => {
 
       return [
         {
+          type: "gitSafetyCheck",
+        },
+        {
           type: "addPackages",
           packages: [
             { name: "eslint", dev: true },
@@ -69,6 +74,11 @@ export default (plop) => {
               lint: "eslint .",
             },
           },
+        },
+        {
+          type: "gitCommit",
+          message: "Set up ESLint",
+          files: ["package.json", packageManagerLockFile(), "eslint.config.js"],
         },
       ];
     },

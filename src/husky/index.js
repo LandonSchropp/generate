@@ -1,4 +1,8 @@
-import { packageManagerRunCommand, detectPackageManager } from "../utilities/package-manager.js";
+import {
+  packageManagerRunCommand,
+  detectPackageManager,
+  packageManagerLockFile,
+} from "../utilities/package-manager.js";
 
 function extensions(answers, includeJavaScript = true, includeTypeDefinitions = false) {
   let isReact = answers.react;
@@ -87,6 +91,9 @@ export default (plop) => {
 
       return [
         {
+          type: "gitSafetyCheck",
+        },
+        {
           type: "addPackages",
           packages,
         },
@@ -114,6 +121,16 @@ export default (plop) => {
         {
           type: "executeWithPackageManager",
           command: ["husky"],
+        },
+        {
+          type: "gitCommit",
+          message: "Set up Husky",
+          files: [
+            ".husky/pre-commit",
+            ".lintstagedrc.json",
+            "package.json",
+            packageManagerLockFile(),
+          ],
         },
       ];
     },
