@@ -14,6 +14,13 @@ const PACKAGE_MANAGER_INSTALL_COMMANDS = {
   npm: ["npm", "install"],
 };
 
+const PACKAGE_MANAGER_LOCK_FILES = {
+  yarn: "yarn.lock",
+  pnpm: "pnpm-lock.yaml",
+  bun: "bun.lock",
+  npm: "package-lock.json",
+};
+
 export function detectPackageManager() {
   if (existsSync("yarn.lock")) {
     return "yarn";
@@ -36,4 +43,8 @@ export function packageManagerRunCommand(packageManager = detectPackageManager()
 
 export function packageManagerInstallCommand(packageManager = detectPackageManager()) {
   return PACKAGE_MANAGER_INSTALL_COMMANDS[packageManager];
+}
+
+export function packageManagerLockFile(packageManager = detectPackageManager()) {
+  return PACKAGE_MANAGER_LOCK_FILES[packageManager];
 }

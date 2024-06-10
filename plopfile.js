@@ -1,3 +1,4 @@
+import { gitSafetyCheck, gitCommit } from "./src/actions/git.js";
 import { writeJSON, mergeJSON } from "./src/actions/json.js";
 import {
   addPackages,
@@ -21,6 +22,8 @@ export default async (plop) => {
   plop.setActionType("installPackages", installPackages);
   plop.setActionType("mergeJSON", mergeJSON);
   plop.setActionType("writeJSON", writeJSON);
+  plop.setActionType("gitSafetyCheck", gitSafetyCheck);
+  plop.setActionType("gitCommit", gitCommit);
 
   // Generators
   await initialize(plop);
