@@ -6,6 +6,9 @@
   "license": "MIT",
   "type": "module",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "generator"
   ],
