@@ -5,7 +5,7 @@ This is a collection of generators for setting up JavaScript/TypeScript projects
 ## TL/DR
 
 ```bash
-npx -p @landonschropp/generators generate
+npx -p @landonschropp/generate generate
 ```
 
 ## The Generators
@@ -24,7 +24,7 @@ This project includes several generators.
 You can run a specific generator via [NPX](https://github.com/zkat/npx) like this:
 
 ```sh
-npx -p @landonschropp/generators generate <generator>
+npx -p @landonschropp/generate generate <generator>
 ```
 
 You can run any of these generators independently, but if you're running more than one do so in the
