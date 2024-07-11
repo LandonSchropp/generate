@@ -13,7 +13,7 @@ npx @landonschropp/generate
 
 This project includes several helpful generators.
 
-- `inititialize`: Creates a package.json file. This is similar to `pnpm init`, but includes
+- `initialize`: Creates a package.json file. This is similar to `pnpm init`, but includes
   different options.
 - `pretter`: Installs and configures [Prettier](https://prettier.io/).
 - `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
