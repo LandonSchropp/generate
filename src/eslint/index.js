@@ -1,4 +1,4 @@
-import { packageManagerLockFile } from "../utilities/package-manager";
+import { packageManagerLockFile } from "../utilities/package-manager.js";
 
 const PLUGINS_MESSAGE = "Which ESLint plugins do you want to use?";
 const GLOBALS_MESSAGE = "Which globals would you like to include?";

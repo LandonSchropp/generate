@@ -1,4 +1,4 @@
-import { packageManagerLockFile } from "../utilities/package-manager";
+import { packageManagerLockFile } from "../utilities/package-manager.js";
 
 export default (plop) => {
   plop.setGenerator("typescript", {
