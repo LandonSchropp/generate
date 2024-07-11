@@ -13,9 +13,6 @@
     "generator"
   ],
   "version": "0.2.0",
-  "bin": {
-    "generate": "./src/index.js"
-  },
   "scripts": {
     "prepare": "husky",
     "lint": "eslint .",
@@ -41,5 +38,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-jsdoc": "^1.3.0"
   },
-  "packageManager": "pnpm@9.5.0+sha256.dbdf5961c32909fb030595a9daa1dae720162e658609a8f92f2fa99835510ca5"
+  "packageManager": "pnpm@9.5.0+sha256.dbdf5961c32909fb030595a9daa1dae720162e658609a8f92f2fa99835510ca5",
+  "bin": "./src/index.js"
 }
