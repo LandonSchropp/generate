@@ -1,18 +1,19 @@
 # JavaScript/TypeScript Generators
 
-This is a collection of generators for setting up JavaScript/TypeScript projects.
+This is a collection of generators for setting up JavaScript/TypeScript projects. It's built with
+[plop](https://plopjs.com/).
 
 ## TL/DR
 
 ```bash
-npx -p @landonschropp/generate generate
+npx @landonschropp/generate
 ```
 
 ## The Generators
 
-This project includes several generators.
+This project includes several helpful generators.
 
-- `init`: Sets up a brand-new Node.js repository. This is similar to `pnpm init`, but includes
+- `inititialize`: Creates a package.json file. This is similar to `pnpm init`, but includes
   different options.
 - `pretter`: Installs and configures [Prettier](https://prettier.io/).
 - `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
@@ -24,7 +25,7 @@ This project includes several generators.
 You can run a specific generator via [NPX](https://github.com/zkat/npx) like this:
 
 ```sh
-npx -p @landonschropp/generate generate <generator>
+npx @landonschropp/generate <generator>
 ```
 
 You can run any of these generators independently, but if you're running more than one do so in the
