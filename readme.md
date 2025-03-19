@@ -7,11 +7,17 @@ This is a collection of generators for setting up JavaScript/TypeScript projects
 
 ```bash
 npx @landonschropp/generate
+npx @landonschropp/generate initialize
+npx @landonschropp/generate pretter
+npx @landonschropp/generate only-allow
+npx @landonschropp/generate eslint
+npx @landonschropp/generate typescript
+npx @landonschropp/generate husky
 ```
 
-## The Generators
+## Generators
 
-This project includes several helpful generators.
+These are the generators included with this project:
 
 - `initialize`: Creates a package.json file. This is similar to `pnpm init`, but includes
   different options.
