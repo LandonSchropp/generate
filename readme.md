@@ -8,7 +8,7 @@ This is a collection of generators for setting up JavaScript/TypeScript projects
 ```bash
 npx @landonschropp/generate
 npx @landonschropp/generate initialize
-npx @landonschropp/generate pretter
+npx @landonschropp/generate prettier
 npx @landonschropp/generate only-allow
 npx @landonschropp/generate eslint
 npx @landonschropp/generate typescript
@@ -21,7 +21,7 @@ These are the generators included with this project:
 
 - `initialize`: Creates a package.json file. This is similar to `pnpm init`, but includes
   different options.
-- `pretter`: Installs and configures [Prettier](https://prettier.io/).
+- `prettier`: Installs and configures [Prettier](https://prettier.io/).
 - `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
 - `eslint`: Installs and configures [ESLint](https://eslint.org/).
 - `typescript`: Installs and configures [TypeScript](https://typescriptlang.org/).
