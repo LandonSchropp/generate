@@ -1,18 +1,23 @@
-import { defineConfig } from "eslint/config";
+import { includeIgnoreFile } from "@eslint/compat";
 import javascript from "@eslint/js";
+import prettier from "eslint-config-prettier";
 {{#if jest}}
 import jest from "eslint-plugin-jest";
 {{/if}}
-import prettier from "eslint-config-prettier";
 {{#if react}}
 import react from "eslint-plugin-react/configs/recommended";
 {{/if}}
+import { defineConfig } from "eslint/config";
 import globals from "globals";
+import { fileURLToPath } from "node:url";
 {{#if typescript}}
 import typescript from "typescript-eslint";
 {{/if}}
 
+const GITIGNORE_PATH = fileURLToPath(new URL(".gitignore", import.meta.url));
+
 export default defineConfig([
+  includeIgnoreFile(GITIGNORE_PATH),
   javascript.configs.recommended,
   {{#if jest}}
   {

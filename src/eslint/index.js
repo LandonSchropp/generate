@@ -54,6 +54,7 @@ export default (plop) => {
             { name: "@eslint/js", dev: true },
             { name: "eslint-config-prettier", dev: true },
             { name: "globals", dev: true },
+            { name: "@eslint/compat", dev: true },
             ...(typescript ? [{ name: "typescript-eslint", dev: true }] : []),
             ...(react ? [{ name: "eslint-plugin-react", dev: true }] : []),
             ...(jest ? [{ name: "eslint-plugin-jest", dev: true }] : []),
