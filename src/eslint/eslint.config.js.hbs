@@ -1,3 +1,4 @@
+import { defineConfig } from "eslint/config";
 import javascript from "@eslint/js";
 {{#if jest}}
 import jest from "eslint-plugin-jest";
@@ -11,7 +12,7 @@ import globals from "globals";
 import typescript from "typescript-eslint";
 {{/if}}
 
-export default [
+export default defineConfig([
   javascript.configs.recommended,
   {{#if jest}}
   {
@@ -47,4 +48,4 @@ export default [
       },
     },
   },
-];
+]);
