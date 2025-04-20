@@ -9,6 +9,9 @@ const GITIGNORE_PATH = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 export default defineConfig([
   includeIgnoreFile(GITIGNORE_PATH),
+  {
+    ignores: ["**/*.d.ts"],
+  },
   javascript.configs.recommended,
   prettier,
   {
