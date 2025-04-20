@@ -5,7 +5,7 @@ import prettier from "eslint-config-prettier";
 import jest from "eslint-plugin-jest";
 {{/if}}
 {{#if react}}
-import react from "eslint-plugin-react/configs/recommended";
+import react from "eslint-plugin-react";
 import reactHooks from 'eslint-plugin-react-hooks';
 {{/if}}
 import { defineConfig } from "eslint/config";
@@ -30,7 +30,7 @@ export default defineConfig([
   },
   {{/if}}
   {{#if react}}
-  react,
+  react.configs.flat.recommended,
   reactHooks.configs['recommended-latest'],
   {{/if}}
   {{#if typescript}}
