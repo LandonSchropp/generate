@@ -6,6 +6,7 @@ import jest from "eslint-plugin-jest";
 {{/if}}
 {{#if react}}
 import react from "eslint-plugin-react/configs/recommended";
+import reactHooks from 'eslint-plugin-react-hooks';
 {{/if}}
 import { defineConfig } from "eslint/config";
 import globals from "globals";
@@ -30,6 +31,7 @@ export default defineConfig([
   {{/if}}
   {{#if react}}
   react,
+  reactHooks.configs['recommended-latest'],
   {{/if}}
   {{#if typescript}}
   ...typescript.configs.recommendedTypeChecked,
