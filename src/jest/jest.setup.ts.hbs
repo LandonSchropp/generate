@@ -1,0 +1,22 @@
+import { it } from "@jest/globals";
+{{#if react}}
+import { configure } from "@testing-library/dom";
+import "@testing-library/jest-dom";
+
+configure({ testIdAttribute: "data-test-id" });
+{{/if}}
+
+type ItFunctionParameter = (() => void | undefined) | (() => Promise<unknown>);
+
+const wrappedIt = (description: string, func?: ItFunctionParameter) => {
+  if (!func) {
+    return it.todo(description);
+  }
+
+  return it(description, func);
+};
+
+Object.assign(wrappedIt, it);
+
+// Monkey patch Jest so that tests written without a function implementation are marked as `todo`.
+globalThis.it = wrappedIt as jest.It;

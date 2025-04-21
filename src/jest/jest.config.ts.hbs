@@ -1,0 +1,14 @@
+import type { JestConfigWithTsJest } from "ts-jest";
+
+module.exports = {
+  preset: "ts-jest",
+  {{#if react}}
+  testEnvironment: "jsdom",
+  {{/if}}
+  moduleNameMapper: {
+    "@/(.*)$": "<rootDir>/src/$1",
+  },
+  moduleFileExtensions: ["js"{{#if react}}, "jsx"{{/if}}, "ts"{{#if react}}, "tsx"{{/if}}],
+  modulePaths: ["<rootDir>"],
+  setupFilesAfterEnv: ["jest-extended", "<rootDir>/jest.setup.ts"],
+} satisfies JestConfigWithTsJest;

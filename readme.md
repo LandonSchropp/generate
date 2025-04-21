@@ -12,6 +12,7 @@ npx @landonschropp/generate prettier
 npx @landonschropp/generate only-allow
 npx @landonschropp/generate eslint
 npx @landonschropp/generate typescript
+npx @landonschropp/generate jest
 npx @landonschropp/generate husky
 ```
 
@@ -25,6 +26,7 @@ These are the generators included with this project:
 - `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
 - `eslint`: Installs and configures [ESLint](https://eslint.org/).
 - `typescript`: Installs and configures [TypeScript](https://typescriptlang.org/).
+- `jest`: Installs and sets up [Jest](https://jestjs.io/).
 - `husky`: Installs and configures [Husky](https://typicode.github.io/husky/) and
   [lint-staged](https://www.npmjs.com/package/lint-staged).
 
