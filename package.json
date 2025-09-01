@@ -1,7 +1,7 @@
 {
   "name": "@landonschropp/generate",
   "description": "A collection of generators for setting up JavaScript/TypeScript projects",
-  "repository": "http://github.com/LandonSchropp/generate",
+  "repository": "https://github.com/LandonSchropp/generate",
   "author": "Landon Schropp <schroppl@gmail.com>",
   "license": "MIT",
   "type": "module",
