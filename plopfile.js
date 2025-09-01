@@ -14,6 +14,9 @@ import prettier from "./src/prettier/index.js";
 import typescript from "./src/typescript/index.js";
 
 export default async (plop) => {
+  // TODO: Instead of letting the user choose one generator, it would be great if multiple
+  // generators could be selected and run in sequence.
+
   // Configuration
   plop.setWelcomeMessage("Landon Schropp's Generators");
 
