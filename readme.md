@@ -46,3 +46,8 @@ Executing this project is as simple as calling `./src/index.js`, which is execut
 ```sh
 ./src/index.js
 ```
+
+## Deployment
+
+First, set the version using `pnpm version <major|minor|patch>`. Then run `pnpm publish` to publish
+the new version.
