@@ -72,7 +72,7 @@ export default async (plop) => {
         default: packageJson.version,
       },
       {
-        type: "choice",
+        type: "list",
         name: "packageManager",
         message: "Which package manager would you like to use?",
         choices: [
