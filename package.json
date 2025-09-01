@@ -19,25 +19,25 @@
     "preinstall": "pnpx only-allow pnpm"
   },
   "dependencies": {
-    "chalk": "^5.3.0",
-    "execa": "^9.1.0",
-    "fs-extra": "^11.2.0",
+    "chalk": "^5.6.0",
+    "execa": "^9.6.0",
+    "fs-extra": "^11.3.1",
     "minimist": "^1.2.8",
     "plop": "^4.0.1",
-    "remeda": "^2.0.6"
+    "remeda": "^2.30.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.8",
-    "@eslint/js": "^9.25.0",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@eslint/compat": "^1.3.2",
+    "@eslint/js": "^9.34.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/fs-extra": "^11.0.4",
-    "eslint": "^9.25.0",
-    "eslint-config-prettier": "^10.1.2",
-    "globals": "^16.0.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.5",
-    "prettier": "^3.2.5",
-    "prettier-plugin-jsdoc": "^1.3.0"
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "prettier-plugin-jsdoc": "^1.3.3"
   },
   "packageManager": "pnpm@9.5.0+sha256.dbdf5961c32909fb030595a9daa1dae720162e658609a8f92f2fa99835510ca5",
   "bin": "./src/index.js"
