@@ -1,7 +1,7 @@
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
 import { packageManagerLockFile } from "../utilities/package-manager.js";
 import { readJson, pathExists } from "fs-extra/esm";
-import { dirname } from "path";
+import { basename } from "path";
 
 export default async (plop) => {
   // TODO: This slows down reading all of the generators. It would be nice if instead it could be
@@ -11,7 +11,7 @@ export default async (plop) => {
   let gitUserName = await getGitUserName();
   let gitUserEmail = await getGitUserEmail();
 
-  let defaultPackageName = dirname(plop.getDestBasePath());
+  let defaultPackageName = basename(plop.getDestBasePath());
   let defaultRepository = gitHubUsername
     ? `https://github.com/${gitHubUsername}/${defaultPackageName.replace(/.*\//, "")}`
     : null;
