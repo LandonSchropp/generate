@@ -1,6 +1,7 @@
 import { readJsonIfExists } from "../utilities/file.js";
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
 import { packageManagerLockFile } from "../utilities/package-manager.js";
+import { pathExists } from "fs-extra";
 import { basename, join } from "path";
 
 export default async (plop) => {
@@ -110,8 +111,24 @@ export default async (plop) => {
           packageManager: answers.packageManager,
         },
         {
+          type: "add",
+          path: ".gitignore",
+          template: "node_modules\n",
+          skipIfExists: true,
+        },
+        {
+          type: "modify",
+          path: ".gitignore",
+          transform(text) {
+            return text.includes("node_modules") ? text : `${text}node_modules\n`;
+          },
+          async skip() {
+            return !(await pathExists(".gitignore"));
+          },
+        },
+        {
           type: "gitCommit",
-          files: ["package.json", packageManagerLockFile(answers.packageManager)],
+          files: ["package.json", packageManagerLockFile(answers.packageManager), ".gitignore"],
           message: "Initialize package",
         },
       ];
