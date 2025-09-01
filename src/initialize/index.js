@@ -93,6 +93,7 @@ export default async (plop) => {
         ...(answers.privatePackage ? { private: answers.privatePackage } : {}),
         ...(answers.module ? { type: "module" } : {}),
         ...(answers.version ? { version: answers.version } : {}),
+        scripts: {},
       };
 
       return [
