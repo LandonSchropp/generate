@@ -1,11 +1,11 @@
+import { readJsonIfExists } from "../utilities/file.js";
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
 import { packageManagerLockFile } from "../utilities/package-manager.js";
-import { readJson, pathExists } from "fs-extra/esm";
 import { basename, join } from "path";
 
 export default async (plop) => {
   let packageJsonPath = join(plop.getDestBasePath(), "package.json");
-  let packageJson = (await pathExists(packageJsonPath)) ? await readJson(packageJsonPath) : {};
+  let packageJson = readJsonIfExists(packageJsonPath, {});
 
   let gitHubUsername = await getGitHubUsername();
   let gitUserName = await getGitUserName();
