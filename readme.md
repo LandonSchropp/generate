@@ -38,3 +38,11 @@ pnpx @landonschropp/generate <generator>
 
 You can run any of these generators independently, but if you're running more than one do so in the
 order listed above.
+
+## Development
+
+Executing this project is as simple as calling `./src/index.js`, which is executable.
+
+```sh
+./src/index.js
+```
