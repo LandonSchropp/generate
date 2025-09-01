@@ -14,7 +14,7 @@ export default (plop) => {
           path: "package.json",
           json: {
             scripts: {
-              preinstall: `pnpx only-allow ${detectPackageManager()}`,
+              preinstall: `pnpm dlx only-allow ${detectPackageManager()}`,
             },
           },
         },

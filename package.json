@@ -16,7 +16,7 @@
   "scripts": {
     "prepare": "husky",
     "lint": "eslint .",
-    "preinstall": "pnpx only-allow pnpm"
+    "preinstall": "pnpm dlx only-allow pnpm"
   },
   "dependencies": {
     "chalk": "^5.6.0",
