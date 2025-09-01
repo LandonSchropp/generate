@@ -1,12 +1,12 @@
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
 import { packageManagerLockFile } from "../utilities/package-manager.js";
-import { readJson } from "fs-extra/esm";
+import { readJson, pathExists } from "fs-extra/esm";
 import { dirname } from "path";
 
 export default async (plop) => {
   // TODO: This slows down reading all of the generators. It would be nice if instead it could be
   // done async inside of the prompts, but that's not currently allowed by Plop.
-  let packageJson = (await readJson("package.json")) ?? {};
+  let packageJson = (await pathExists("package.json")) ? await readJson("package.json") : {};
   let gitHubUsername = await getGitHubUsername();
   let gitUserName = await getGitUserName();
   let gitUserEmail = await getGitUserEmail();
