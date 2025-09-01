@@ -1,18 +1,7 @@
+import { readJsonIfExists } from "../utilities/file.js";
 import { getDestinationPath } from "../utilities/plop.js";
-import { readJson, writeJson } from "fs-extra/esm";
+import { writeJson } from "fs-extra/esm";
 import { mergeDeep } from "remeda";
-
-/**
- * Safely reads JSON from the provided file. If the file does not exist or the JSON is invalid, an
- * empty object is returned.
- */
-async function safeReadJson(path) {
-  try {
-    return await readJson(path);
-  } catch {
-    return {};
-  }
-}
 
 /**
  * This action is like `add`, but instead of rendering a template, it writes the provided data to
@@ -32,7 +21,7 @@ export async function writeJSON(_answers, config, plop) {
  */
 export async function mergeJSON(_answers, config, plop) {
   let destinationPath = getDestinationPath(config, plop);
-  let json = mergeDeep(await safeReadJson(destinationPath), config.json);
+  let json = mergeDeep((await readJsonIfExists(destinationPath)) ?? {}, config.json);
 
   await writeJson(destinationPath, json, { spaces: 2 });
 

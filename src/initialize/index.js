@@ -5,7 +5,7 @@ import { basename, join } from "path";
 
 export default async (plop) => {
   let packageJsonPath = join(plop.getDestBasePath(), "package.json");
-  let packageJson = readJsonIfExists(packageJsonPath, {});
+  let packageJson = (await readJsonIfExists(packageJsonPath)) ?? {};
 
   let gitHubUsername = await getGitHubUsername();
   let gitUserName = await getGitUserName();
