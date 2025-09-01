@@ -6,14 +6,14 @@ This is a collection of generators for setting up JavaScript/TypeScript projects
 ## TL/DR
 
 ```bash
-npx @landonschropp/generate
-npx @landonschropp/generate initialize
-npx @landonschropp/generate prettier
-npx @landonschropp/generate only-allow
-npx @landonschropp/generate eslint
-npx @landonschropp/generate typescript
-npx @landonschropp/generate jest
-npx @landonschropp/generate husky
+pnpx @landonschropp/generate
+pnpx @landonschropp/generate initialize
+pnpx @landonschropp/generate prettier
+pnpx @landonschropp/generate only-allow
+pnpx @landonschropp/generate eslint
+pnpx @landonschropp/generate typescript
+pnpx @landonschropp/generate jest
+pnpx @landonschropp/generate husky
 ```
 
 ## Generators
@@ -30,10 +30,10 @@ These are the generators included with this project:
 - `husky`: Installs and configures [Husky](https://typicode.github.io/husky/) and
   [lint-staged](https://www.npmjs.com/package/lint-staged).
 
-You can run a specific generator via [NPX](https://github.com/zkat/npx) like this:
+You can run a specific generator via [pnpx](https://pnpm.io/cli/dlx) like this:
 
 ```sh
-npx @landonschropp/generate <generator>
+pnpx @landonschropp/generate <generator>
 ```
 
 You can run any of these generators independently, but if you're running more than one do so in the
