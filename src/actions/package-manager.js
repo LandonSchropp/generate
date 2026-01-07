@@ -16,7 +16,7 @@ async function addPackagesCommand(packages, dev) {
     case "pnpm":
       return compact(["pnpm", "add", dev ? "--save-dev" : null, ...packages]);
     case "bun":
-      return compact(["bun", "add", dev ? "--save-dev" : null, ...packages]);
+      return compact(["bun", "install", dev ? "--save-dev" : null, ...packages]);
     default:
       return compact(["npm", "install", dev ? "--save-dev" : "--save", ...packages]);
   }
