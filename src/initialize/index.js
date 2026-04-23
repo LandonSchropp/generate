@@ -1,5 +1,6 @@
 import { readJsonIfExists } from "../utilities/file.js";
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
+import { getLatestNodeMajorVersion } from "../utilities/node.js";
 import { packageManagerLockFile } from "../utilities/package-manager.js";
 import { pathExists } from "fs-extra";
 import { basename, join } from "path";
@@ -11,6 +12,7 @@ export default async (plop) => {
   let gitHubUsername = await getGitHubUsername();
   let gitUserName = await getGitUserName();
   let gitUserEmail = await getGitUserEmail();
+  let latestNodeMajor = await getLatestNodeMajorVersion();
 
   let defaultPackageName = basename(plop.getDestBasePath());
   let defaultRepository = gitHubUsername
@@ -97,6 +99,8 @@ export default async (plop) => {
         scripts: {},
       };
 
+      let includeNodeVersion = answers.packageManager !== "bun";
+
       return [
         {
           type: "gitSafetyCheck",
@@ -126,9 +130,24 @@ export default async (plop) => {
             return !(await pathExists(".gitignore"));
           },
         },
+        ...(includeNodeVersion
+          ? [
+              {
+                type: "add",
+                path: ".node-version",
+                template: `${latestNodeMajor}\n`,
+                force: true,
+              },
+            ]
+          : []),
         {
           type: "gitCommit",
-          files: ["package.json", packageManagerLockFile(answers.packageManager), ".gitignore"],
+          files: [
+            "package.json",
+            packageManagerLockFile(answers.packageManager),
+            ".gitignore",
+            ...(includeNodeVersion ? [".node-version"] : []),
+          ],
           message: "Initialize package",
         },
       ];
