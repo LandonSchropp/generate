@@ -1,7 +1,8 @@
 import { initializeTestRepo } from "../../test/helpers.js";
 import { execa } from "execa";
-import { readJson } from "fs-extra/esm";
-import { readFile } from "node:fs/promises";
+import { pathExists, readJson } from "fs-extra/esm";
+import { mkdtemp, readFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
@@ -36,6 +37,28 @@ describe("the initialize generator", () => {
 
     it("writes a .node-version file with a major version", async () => {
       expect(await readFile(join(directory, ".node-version"), "utf8")).toMatch(/^\d+\s*$/);
+    });
+
+    it("commits the changes with 'Initialize package'", async () => {
+      let { stdout } = await execa("git", ["log", "-1", "--pretty=%s"], { cwd: directory });
+      expect(stdout).toBe("Initialize package");
+    });
+  });
+
+  describe("when the directory is not already a Git repository", () => {
+    let directory;
+
+    beforeAll(async () => {
+      directory = await mkdtemp(join(tmpdir(), "generate-init-no-git-"));
+      await execa(
+        BIN,
+        ["initialize", "my-project", "A test project", "", "", "MIT", "false", "true", "", "pnpm"],
+        { cwd: directory },
+      );
+    }, 60000);
+
+    it("initializes a Git repository", async () => {
+      expect(await pathExists(join(directory, ".git"))).toBe(true);
     });
 
     it("commits the changes with 'Initialize package'", async () => {

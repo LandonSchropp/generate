@@ -103,6 +103,9 @@ export default async (plop) => {
 
       return [
         {
+          type: "gitInit",
+        },
+        {
           type: "gitSafetyCheck",
         },
         {
