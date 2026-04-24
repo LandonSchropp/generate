@@ -1,3 +1,4 @@
+import { asyncFilter } from "../utilities/array.js";
 import chalk from "chalk";
 import { execa } from "execa";
 import { pathExists } from "fs-extra";
@@ -27,8 +28,7 @@ export async function gitSafetyCheck() {
 /** This action stages the provided files and commits them with the given message. */
 export async function gitCommit(_answers, { files, message }) {
   let cwd = process.cwd();
-  let checks = await Promise.all(files.map((file) => pathExists(join(cwd, file))));
-  let existingFiles = files.filter((_, index) => checks[index]);
+  let existingFiles = await asyncFilter(files, (file) => pathExists(join(cwd, file)));
 
   await execa("git", ["add", ...existingFiles], { cwd });
   await execa("git", ["commit", "--message", message], { cwd });
