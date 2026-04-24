@@ -1,11 +1,9 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readJson } from "fs-extra/esm";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 describe("the husky generator", () => {
   describe("with all checks and a React project", () => {
@@ -23,7 +21,10 @@ describe("the husky generator", () => {
         cwd: directory,
       });
       await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
-      await execa(BIN, ["husky", "prettier,typescript,eslint,test", "true"], { cwd: directory });
+      await runGenerator("husky", directory, {
+        checks: "prettier,typescript,eslint,test",
+        react: true,
+      });
     }, 120000);
 
     it("writes a pre-commit script that runs lint-staged", async () => {

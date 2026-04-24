@@ -1,11 +1,9 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readJson } from "fs-extra/esm";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 describe("the only-allow generator", () => {
   let directory;
@@ -18,7 +16,7 @@ describe("the only-allow generator", () => {
     );
     await execa("git", ["add", "package.json"], { cwd: directory });
     await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
-    await execa(BIN, ["only-allow"], { cwd: directory });
+    await runGenerator("only-allow", directory);
   }, 60000);
 
   it("adds a preinstall script that invokes only-allow", async () => {

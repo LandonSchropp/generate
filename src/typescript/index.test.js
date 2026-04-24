@@ -1,11 +1,9 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readJson } from "fs-extra/esm";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 async function setupRepo() {
   let directory = await initializeTestRepo();
@@ -24,7 +22,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["typescript", "node", "false", ""], { cwd: directory });
+      await runGenerator("typescript", directory, { type: "node", react: false, outDir: "" });
     }, 60000);
 
     it("writes a tsconfig.json with noEmit set", async () => {
@@ -52,7 +50,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["typescript", "node", "false", "dist"], { cwd: directory });
+      await runGenerator("typescript", directory, { type: "node", react: false, outDir: "dist" });
     }, 60000);
 
     it("writes a tsconfig.json with the given outDir", async () => {

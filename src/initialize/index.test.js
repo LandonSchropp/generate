@@ -1,4 +1,4 @@
-import { initializeTestRepo } from "../../test/helpers.js";
+import { initializeTestRepo, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { pathExists, readJson } from "fs-extra/esm";
 import { mkdtemp, readFile } from "node:fs/promises";
@@ -6,7 +6,17 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
-const BIN = join(import.meta.dirname, "..", "index.js");
+const DEFAULT_FLAGS = {
+  name: "my-project",
+  description: "A test project",
+  author: "",
+  repository: "",
+  license: "MIT",
+  privatePackage: false,
+  module: true,
+  version: "",
+  packageManager: "pnpm",
+};
 
 describe("the initialize generator", () => {
   describe("when the package manager is pnpm", () => {
@@ -14,11 +24,7 @@ describe("the initialize generator", () => {
 
     beforeAll(async () => {
       directory = await initializeTestRepo();
-      await execa(
-        BIN,
-        ["initialize", "my-project", "A test project", "", "", "MIT", "false", "true", "", "pnpm"],
-        { cwd: directory },
-      );
+      await runGenerator("initialize", directory, DEFAULT_FLAGS);
     }, 60000);
 
     it("writes a package.json with the given name", async () => {
@@ -50,11 +56,7 @@ describe("the initialize generator", () => {
 
     beforeAll(async () => {
       directory = await mkdtemp(join(tmpdir(), "generate-init-no-git-"));
-      await execa(
-        BIN,
-        ["initialize", "my-project", "A test project", "", "", "MIT", "false", "true", "", "pnpm"],
-        { cwd: directory },
-      );
+      await runGenerator("initialize", directory, DEFAULT_FLAGS);
     }, 60000);
 
     it("initializes a Git repository", async () => {
@@ -72,11 +74,7 @@ describe("the initialize generator", () => {
 
     beforeAll(async () => {
       directory = await initializeTestRepo();
-      await execa(
-        BIN,
-        ["initialize", "my-project", "A test project", "", "", "MIT", "false", "true", "", "bun"],
-        { cwd: directory },
-      );
+      await runGenerator("initialize", directory, { ...DEFAULT_FLAGS, packageManager: "bun" });
     }, 60000);
 
     it("does not write a .node-version file", async () => {

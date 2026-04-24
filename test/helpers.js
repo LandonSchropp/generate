@@ -3,6 +3,18 @@ import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
+const BIN = join(import.meta.dirname, "..", "src", "index.js");
+
+export async function runGenerator(generator, directory, flags = {}) {
+  let args = [generator];
+
+  for (let [key, value] of Object.entries(flags)) {
+    args.push(`--${key}`, String(value));
+  }
+
+  return execa(BIN, args, { cwd: directory });
+}
+
 export async function initializeTestRepo() {
   let directory = await mkdtemp(join(tmpdir(), "generate-"));
 

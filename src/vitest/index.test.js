@@ -1,11 +1,9 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readJson } from "fs-extra/esm";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 async function setupRepo() {
   let directory = await initializeTestRepo();
@@ -24,7 +22,7 @@ describe("the vitest generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["vitest", "true", "true"], { cwd: directory });
+      await runGenerator("vitest", directory, { typescript: true, react: true });
     }, 60000);
 
     it("writes a vitest.config.ts with the jsdom environment", async () => {
@@ -54,7 +52,7 @@ describe("the vitest generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["vitest", "true", "false"], { cwd: directory });
+      await runGenerator("vitest", directory, { typescript: true, react: false });
     }, 60000);
 
     it("writes a vitest.config.ts without the jsdom environment", async () => {
@@ -67,7 +65,7 @@ describe("the vitest generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["vitest", "false", "true"], { cwd: directory });
+      await runGenerator("vitest", directory, { typescript: false, react: true });
     }, 60000);
 
     it("writes a vitest.config.js", async () => {

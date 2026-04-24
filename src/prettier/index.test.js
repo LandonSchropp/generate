@@ -1,10 +1,8 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 describe("the prettier generator", () => {
   let directory;
@@ -17,7 +15,7 @@ describe("the prettier generator", () => {
     );
     await execa("git", ["add", "package.json"], { cwd: directory });
     await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
-    await execa(BIN, ["prettier"], { cwd: directory });
+    await runGenerator("prettier", directory);
   }, 60000);
 
   it("writes a .prettierrc", async () => {

@@ -1,11 +1,9 @@
-import { initializeTestRepo, lastCommit } from "../../test/helpers.js";
+import { initializeTestRepo, lastCommit, runGenerator } from "../../test/helpers.js";
 import { execa } from "execa";
 import { readJson } from "fs-extra/esm";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-
-const BIN = join(import.meta.dirname, "..", "index.js");
 
 async function setupRepo() {
   let directory = await initializeTestRepo();
@@ -25,7 +23,12 @@ describe("the eslint generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["eslint", "true", "false", "false", "node"], { cwd: directory });
+      await runGenerator("eslint", directory, {
+        typescript: true,
+        react: false,
+        vitest: false,
+        globals: "node",
+      });
     }, 120000);
 
     it("writes an eslint.config.js that imports typescript-eslint", async () => {
@@ -53,7 +56,12 @@ describe("the eslint generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["eslint", "false", "true", "false", "browser"], { cwd: directory });
+      await runGenerator("eslint", directory, {
+        typescript: false,
+        react: true,
+        vitest: false,
+        globals: "browser",
+      });
     }, 120000);
 
     it("writes an eslint.config.js that imports eslint-plugin-react", async () => {
