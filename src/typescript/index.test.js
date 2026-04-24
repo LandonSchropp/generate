@@ -5,11 +5,11 @@ import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
-async function setupRepo() {
+async function setupRepo(devDependencies = {}) {
   let directory = await initializeTestRepo();
   await writeFile(
     join(directory, "package.json"),
-    JSON.stringify({ name: "t", type: "module", scripts: {} }) + "\n",
+    JSON.stringify({ name: "t", type: "module", scripts: {}, devDependencies }) + "\n",
   );
   await execa("git", ["add", "package.json"], { cwd: directory });
   await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
@@ -22,7 +22,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await runGenerator("typescript", directory, { type: "node", react: false, outDir: "" });
+      await runGenerator("typescript", directory, { type: "node", outDir: "" });
     }, 60000);
 
     it("writes a tsconfig.json with noEmit set", async () => {
@@ -50,7 +50,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await runGenerator("typescript", directory, { type: "node", react: false, outDir: "dist" });
+      await runGenerator("typescript", directory, { type: "node", outDir: "dist" });
     }, 60000);
 
     it("writes a tsconfig.json with the given outDir", async () => {

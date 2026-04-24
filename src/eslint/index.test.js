@@ -5,11 +5,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
-async function setupRepo() {
+async function setupRepo(devDependencies = {}) {
   let directory = await initializeTestRepo();
   await writeFile(
     join(directory, "package.json"),
-    JSON.stringify({ name: "t", type: "module", scripts: {} }) + "\n",
+    JSON.stringify({ name: "t", type: "module", scripts: {}, devDependencies }) + "\n",
   );
   await writeFile(join(directory, "pnpm-lock.yaml"), "");
   await execa("git", ["add", "package.json"], { cwd: directory });
@@ -18,17 +18,12 @@ async function setupRepo() {
 }
 
 describe("the eslint generator", () => {
-  describe("with the typescript plugin and node globals", () => {
+  describe("with a typescript project and node globals", () => {
     let directory;
 
     beforeAll(async () => {
-      directory = await setupRepo();
-      await runGenerator("eslint", directory, {
-        typescript: true,
-        react: false,
-        vitest: false,
-        globals: "node",
-      });
+      directory = await setupRepo({ typescript: "*" });
+      await runGenerator("eslint", directory, { globals: "node" });
     }, 120000);
 
     it("writes an eslint.config.js that imports typescript-eslint", async () => {
@@ -51,17 +46,12 @@ describe("the eslint generator", () => {
     });
   });
 
-  describe("with the react plugin and browser globals", () => {
+  describe("with a react project and browser globals", () => {
     let directory;
 
     beforeAll(async () => {
-      directory = await setupRepo();
-      await runGenerator("eslint", directory, {
-        typescript: false,
-        react: true,
-        vitest: false,
-        globals: "browser",
-      });
+      directory = await setupRepo({ react: "*" });
+      await runGenerator("eslint", directory, { globals: "browser" });
     }, 120000);
 
     it("writes an eslint.config.js that imports eslint-plugin-react", async () => {

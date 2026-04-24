@@ -3,30 +3,32 @@ import {
   detectPackageManager,
   packageManagerLockFile,
 } from "../utilities/package-manager.js";
+import { hasDependency } from "../utilities/project.js";
 
-function extensions(answers, includeJavaScript = true, includeTypeDefinitions = false) {
-  let isReact = answers.react;
-  let includeTypeScript = answers.checks.includes("typescript");
-
+function extensions(
+  react,
+  typescript,
+  { includeJavaScript = true, includeTypeDefinitions = false } = {},
+) {
   let extensions = [];
 
   if (includeJavaScript) {
     extensions.push("js");
   }
 
-  if (isReact && includeJavaScript) {
+  if (react && includeJavaScript) {
     extensions.push("jsx");
   }
 
-  if (includeTypeScript) {
+  if (typescript) {
     extensions.push("ts");
   }
 
-  if (isReact && includeTypeScript) {
+  if (react && typescript) {
     extensions.push("tsx");
   }
 
-  if (includeTypeScript && includeTypeDefinitions) {
+  if (typescript && includeTypeDefinitions) {
     extensions.push("d.ts");
   }
 
@@ -36,29 +38,13 @@ function extensions(answers, includeJavaScript = true, includeTypeDefinitions = 
 export default (plop) => {
   plop.setGenerator("husky", {
     description: "Runs checks on staged files with Husky and lint-staged",
-    prompts: [
-      {
-        type: "checkbox",
-        name: "checks",
-        message: "Which checks would you like to include?",
-        choices: [
-          { name: "Prettier", value: "prettier", checked: true },
-          { name: "TypeScript", value: "typescript", checked: true },
-          { name: "ESLint", value: "eslint", checked: true },
-          { name: "Test", value: "test", checked: true },
-        ],
-      },
-      {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?",
-      },
-    ],
-    actions: (answers) => {
-      let includeTypeScript = answers.checks.includes("typescript");
-      let includePrettier = answers.checks.includes("prettier");
-      let includeESLint = answers.checks.includes("eslint");
-      let includeTest = answers.checks.includes("test");
+    prompts: [],
+    actions: () => {
+      let react = hasDependency("react");
+      let typescript = hasDependency("typescript");
+      let prettier = hasDependency("prettier");
+      let eslint = hasDependency("eslint");
+      let test = hasDependency("vitest") || hasDependency("jest");
 
       let data = { runCommand: packageManagerRunCommand().join(" ") };
 
@@ -67,26 +53,28 @@ export default (plop) => {
         { name: "lint-staged", dev: true },
       ];
 
-      if (includeTypeScript) {
+      if (typescript) {
         packages.push({ name: "tsc-files", dev: true });
       }
 
       let checks = {};
 
-      if (includePrettier) {
+      if (prettier) {
         checks["*"] = "prettier --check --cache --ignore-unknown";
       }
 
-      if (includeTypeScript) {
-        checks[`*.${extensions(answers, false, true)}`] = "tsc-files --noEmit";
+      if (typescript) {
+        checks[
+          `*.${extensions(react, typescript, { includeJavaScript: false, includeTypeDefinitions: true })}`
+        ] = "tsc-files --noEmit";
       }
 
-      if (includeESLint) {
-        checks[`*.${extensions(answers)}`] = "eslint";
+      if (eslint) {
+        checks[`*.${extensions(react, typescript)}`] = "eslint";
       }
 
-      if (includeTest) {
-        checks[`*.test.${extensions(answers)}`] = `${detectPackageManager()} test`;
+      if (test) {
+        checks[`*.test.${extensions(react, typescript)}`] = `${detectPackageManager()} test`;
       }
 
       return [

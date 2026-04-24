@@ -6,14 +6,25 @@ import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
 describe("the husky generator", () => {
-  describe("with all checks and a React project", () => {
+  describe("with all tooling installed in a React project", () => {
     let directory;
 
     beforeAll(async () => {
       directory = await initializeTestRepo();
       await writeFile(
         join(directory, "package.json"),
-        JSON.stringify({ name: "t", type: "module", scripts: {} }) + "\n",
+        JSON.stringify({
+          name: "t",
+          type: "module",
+          scripts: {},
+          devDependencies: {
+            prettier: "*",
+            typescript: "*",
+            eslint: "*",
+            vitest: "*",
+            react: "*",
+          },
+        }) + "\n",
       );
       await writeFile(join(directory, ".prettierignore"), "pnpm-lock.yaml\n");
       await execa("pnpm", ["install", "--silent"], { cwd: directory });
@@ -21,10 +32,7 @@ describe("the husky generator", () => {
         cwd: directory,
       });
       await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
-      await runGenerator("husky", directory, {
-        checks: "prettier,typescript,eslint,test",
-        react: true,
-      });
+      await runGenerator("husky", directory);
     }, 120000);
 
     it("writes a pre-commit script that runs lint-staged", async () => {

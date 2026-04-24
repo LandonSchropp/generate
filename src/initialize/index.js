@@ -1,7 +1,7 @@
 import { readJsonIfExists } from "../utilities/file.js";
 import { getGitHubUsername, getGitUserName, getGitUserEmail } from "../utilities/git.js";
 import { getLatestNodeMajorVersion } from "../utilities/node.js";
-import { packageManagerLockFile } from "../utilities/package-manager.js";
+import { findPackageManager, packageManagerLockFile } from "../utilities/package-manager.js";
 import { pathExists } from "fs-extra";
 import { basename, join } from "path";
 
@@ -85,6 +85,7 @@ export default async (plop) => {
           { name: "Yarn", value: "yarn" },
           { name: "NPM", value: "npm" },
         ],
+        default: findPackageManager(plop.getDestBasePath()),
       },
     ],
     actions: (answers) => {

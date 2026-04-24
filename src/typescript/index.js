@@ -1,4 +1,5 @@
 import { packageManagerLockFile } from "../utilities/package-manager.js";
+import { hasDependency } from "../utilities/project.js";
 
 export default (plop) => {
   plop.setGenerator("typescript", {
@@ -7,16 +8,11 @@ export default (plop) => {
       {
         type: "list",
         name: "type",
-        message: "What type of project is this?",
+        message: "Where will this code run?",
         choices: [
           { name: "Node", value: "node" },
           { name: "Browser", value: "browser" },
         ],
-      },
-      {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?",
       },
       {
         type: "input",
@@ -25,7 +21,8 @@ export default (plop) => {
       },
     ],
     actions: (answers) => {
-      let { type, react, outDir } = answers;
+      let { type, outDir } = answers;
+      let react = hasDependency("react");
       let emit = outDir !== "";
 
       let data = {

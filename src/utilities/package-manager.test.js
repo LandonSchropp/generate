@@ -1,5 +1,6 @@
 import {
   detectPackageManager,
+  findPackageManager,
   packageManagerInstallCommand,
   packageManagerLockFile,
   packageManagerRunCommand,
@@ -60,6 +61,61 @@ describe("detectPackageManager", () => {
   describe("when no lockfile exists", () => {
     it("returns npm", () => {
       expect(detectPackageManager()).toBe("npm");
+    });
+  });
+});
+
+describe("findPackageManager", () => {
+  let directory;
+
+  beforeEach(async () => {
+    directory = await mkdtemp(join(tmpdir(), "generate-pm-"));
+    vi.spyOn(process, "cwd").mockReturnValue(directory);
+  });
+
+  describe("when yarn.lock exists", () => {
+    beforeEach(async () => {
+      await writeFile(join(directory, "yarn.lock"), "");
+    });
+
+    it("returns yarn", () => {
+      expect(findPackageManager()).toBe("yarn");
+    });
+  });
+
+  describe("when pnpm-lock.yaml exists", () => {
+    beforeEach(async () => {
+      await writeFile(join(directory, "pnpm-lock.yaml"), "");
+    });
+
+    it("returns pnpm", () => {
+      expect(findPackageManager()).toBe("pnpm");
+    });
+  });
+
+  describe("when bun.lock exists", () => {
+    beforeEach(async () => {
+      await writeFile(join(directory, "bun.lock"), "");
+    });
+
+    it("returns bun", () => {
+      expect(findPackageManager()).toBe("bun");
+    });
+  });
+
+  describe("when package-lock.json exists", () => {
+    beforeEach(async () => {
+      await writeFile(join(directory, "package-lock.json"), "");
+    });
+
+    it("returns npm", () => {
+      expect(findPackageManager()).toBe("npm");
+    });
+  });
+
+  describe("when no lockfile exists", () => {
+    it("returns null", () => {
+      expect(findPackageManager()).toBeNull();
     });
   });
 });

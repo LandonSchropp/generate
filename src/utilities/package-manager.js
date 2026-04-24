@@ -22,7 +22,7 @@ const PACKAGE_MANAGER_LOCK_FILES = {
   npm: "package-lock.json",
 };
 
-export function detectPackageManager(cwd = process.cwd()) {
+export function findPackageManager(cwd = process.cwd()) {
   if (existsSync(join(cwd, "yarn.lock"))) {
     return "yarn";
   }
@@ -35,7 +35,15 @@ export function detectPackageManager(cwd = process.cwd()) {
     return "bun";
   }
 
-  return "npm";
+  if (existsSync(join(cwd, "package-lock.json"))) {
+    return "npm";
+  }
+
+  return null;
+}
+
+export function detectPackageManager(cwd = process.cwd()) {
+  return findPackageManager(cwd) ?? "npm";
 }
 
 export function packageManagerRunCommand(packageManager = detectPackageManager()) {

@@ -1,24 +1,10 @@
 import { packageManagerLockFile } from "../utilities/package-manager.js";
+import { hasDependency } from "../utilities/project.js";
 
 export default (plop) => {
   plop.setGenerator("eslint", {
     description: "Sets up ESLint",
     prompts: [
-      {
-        type: "confirm",
-        name: "typescript",
-        message: "Is this a TypeScript project?",
-      },
-      {
-        type: "confirm",
-        name: "react",
-        message: "Is this a React project?",
-      },
-      {
-        type: "confirm",
-        name: "vitest",
-        message: "Is this a Vitest project?",
-      },
       {
         type: "checkbox",
         name: "globals",
@@ -30,7 +16,9 @@ export default (plop) => {
       },
     ],
     actions: (answers) => {
-      let { typescript, react, vitest } = answers;
+      let typescript = hasDependency("typescript");
+      let react = hasDependency("react");
+      let vitest = hasDependency("vitest");
       let browser = answers.globals.includes("browser");
       let node = answers.globals.includes("node");
 

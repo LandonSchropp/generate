@@ -5,11 +5,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 
-async function setupRepo() {
+async function setupRepo(devDependencies = {}) {
   let directory = await initializeTestRepo();
   await writeFile(
     join(directory, "package.json"),
-    JSON.stringify({ name: "t", type: "module", scripts: {} }) + "\n",
+    JSON.stringify({ name: "t", type: "module", scripts: {}, devDependencies }) + "\n",
   );
   await execa("git", ["add", "package.json"], { cwd: directory });
   await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
@@ -21,8 +21,8 @@ describe("the vitest generator", () => {
     let directory;
 
     beforeAll(async () => {
-      directory = await setupRepo();
-      await runGenerator("vitest", directory, { typescript: true, react: true });
+      directory = await setupRepo({ typescript: "*", react: "*" });
+      await runGenerator("vitest", directory);
     }, 60000);
 
     it("writes a vitest.config.ts with the jsdom environment", async () => {
@@ -51,8 +51,8 @@ describe("the vitest generator", () => {
     let directory;
 
     beforeAll(async () => {
-      directory = await setupRepo();
-      await runGenerator("vitest", directory, { typescript: true, react: false });
+      directory = await setupRepo({ typescript: "*" });
+      await runGenerator("vitest", directory);
     }, 60000);
 
     it("writes a vitest.config.ts without the jsdom environment", async () => {
@@ -64,8 +64,8 @@ describe("the vitest generator", () => {
     let directory;
 
     beforeAll(async () => {
-      directory = await setupRepo();
-      await runGenerator("vitest", directory, { typescript: false, react: true });
+      directory = await setupRepo({ react: "*" });
+      await runGenerator("vitest", directory);
     }, 60000);
 
     it("writes a vitest.config.js", async () => {
