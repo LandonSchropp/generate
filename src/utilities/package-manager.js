@@ -1,4 +1,5 @@
 import { existsSync } from "fs";
+import { join } from "node:path";
 
 const PACKAGE_MANAGER_RUN_COMMANDS = {
   yarn: ["yarn", "exec"],
@@ -21,16 +22,16 @@ const PACKAGE_MANAGER_LOCK_FILES = {
   npm: "package-lock.json",
 };
 
-export function detectPackageManager() {
-  if (existsSync("yarn.lock")) {
+export function detectPackageManager(cwd = process.cwd()) {
+  if (existsSync(join(cwd, "yarn.lock"))) {
     return "yarn";
   }
 
-  if (existsSync("pnpm-lock.yaml")) {
+  if (existsSync(join(cwd, "pnpm-lock.yaml"))) {
     return "pnpm";
   }
 
-  if (existsSync("bun.lock")) {
+  if (existsSync(join(cwd, "bun.lock"))) {
     return "bun";
   }
 
