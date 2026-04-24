@@ -68,4 +68,35 @@ describe("the typescript generator", () => {
       expect(packageJson.scripts.build).toBe("tsc");
     });
   });
+
+  describe("with a bun project", () => {
+    let directory;
+
+    beforeAll(async () => {
+      directory = await initializeTestRepo();
+      await writeFile(
+        join(directory, "package.json"),
+        JSON.stringify({ name: "t", type: "module", scripts: {}, devDependencies: {} }) + "\n",
+      );
+      await writeFile(join(directory, "bun.lock"), "");
+      await execa("git", ["add", "package.json", "bun.lock"], { cwd: directory });
+      await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
+      await runGenerator("typescript", directory, { outDir: "" });
+    }, 120000);
+
+    it("writes a tsconfig.json with module esnext", async () => {
+      let tsconfig = await readJson(join(directory, "tsconfig.json"));
+      expect(tsconfig.compilerOptions.module).toBe("esnext");
+    });
+
+    it("writes a tsconfig.json with moduleResolution bundler", async () => {
+      let tsconfig = await readJson(join(directory, "tsconfig.json"));
+      expect(tsconfig.compilerOptions.moduleResolution).toBe("bundler");
+    });
+
+    it("writes a tsconfig.json that pulls in bun types", async () => {
+      let tsconfig = await readJson(join(directory, "tsconfig.json"));
+      expect(tsconfig.compilerOptions.types).toEqual(["bun"]);
+    });
+  });
 });

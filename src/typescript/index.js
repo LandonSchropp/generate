@@ -1,19 +1,25 @@
-import { packageManagerLockFile } from "../utilities/package-manager.js";
+import { findPackageManager, packageManagerLockFile } from "../utilities/package-manager.js";
 import { hasDependency } from "../utilities/project.js";
 
 export default (plop) => {
+  let bun = findPackageManager() === "bun";
+
   plop.setGenerator("typescript", {
     description: "Sets up TypeScript (tsconfig.json)",
     prompts: [
-      {
-        type: "list",
-        name: "type",
-        message: "Where will this code run?",
-        choices: [
-          { name: "Node", value: "node" },
-          { name: "Browser", value: "browser" },
-        ],
-      },
+      ...(bun
+        ? []
+        : [
+            {
+              type: "list",
+              name: "type",
+              message: "Where will this code run?",
+              choices: [
+                { name: "Node", value: "node" },
+                { name: "Browser", value: "browser" },
+              ],
+            },
+          ]),
       {
         type: "input",
         name: "outDir",
@@ -23,13 +29,17 @@ export default (plop) => {
     actions: (answers) => {
       let { type, outDir } = answers;
       let react = hasDependency("react");
+      let node = !bun && type === "node";
+      let browser = !bun && type === "browser";
       let emit = outDir !== "";
 
       let data = {
-        node: type === "node",
-        browser: type === "browser",
+        node,
+        browser,
+        bun,
         react,
-        dom: react || type === "browser",
+        dom: react || browser,
+        bundler: bun || browser,
         emit,
         outDir,
       };
@@ -45,8 +55,10 @@ export default (plop) => {
         },
         {
           type: "addPackages",
-          packages: [{ name: "typescript", dev: true }],
-          dev: true,
+          packages: [
+            { name: "typescript", dev: true },
+            ...(bun ? [{ name: "@types/bun", dev: true }] : []),
+          ],
         },
         {
           type: "add",

@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "esnext",
     "module": {{#if node}}"nodenext"{{else}}"esnext"{{/if}},
-    {{#if browser}}
+    {{#if bundler}}
     "moduleResolution": "bundler",
     {{/if}}
     "lib": [{{#if dom}}"dom", "dom.iterable", {{/if}}"esnext"],
+    {{#if bun}}
+    "types": ["bun"],
+    {{/if}}
     {{#if react}}
     "jsx": "react-jsx"
     {{/if}}
