@@ -1,6 +1,15 @@
 import { commitFile, initializeTestRepo, lastCommit, stageFile } from "../../test/helpers.js";
-import { gitCommit, gitSafetyCheck, isStagingEmpty, isWorkingDirectoryClean } from "./git.js";
-import { writeFile } from "node:fs/promises";
+import {
+  gitCommit,
+  gitInit,
+  gitSafetyCheck,
+  isStagingEmpty,
+  isWorkingDirectoryClean,
+} from "./git.js";
+import { execa } from "execa";
+import { pathExists } from "fs-extra";
+import { mkdtemp, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -9,6 +18,37 @@ let directory;
 beforeEach(async () => {
   directory = await initializeTestRepo();
   vi.spyOn(process, "cwd").mockReturnValue(directory);
+});
+
+describe("gitInit", () => {
+  describe("when no Git repository exists in the current directory", () => {
+    beforeEach(async () => {
+      directory = await mkdtemp(join(tmpdir(), "generate-no-git-"));
+      vi.mocked(process.cwd).mockReturnValue(directory);
+    });
+
+    it("creates a .git directory", async () => {
+      await gitInit();
+      expect(await pathExists(join(directory, ".git"))).toBe(true);
+    });
+
+    it("returns an 'initialized' message", async () => {
+      expect(await gitInit()).toContain("Initialized");
+    });
+  });
+
+  describe("when a Git repository already exists", () => {
+    it("returns an 'already initialized' message", async () => {
+      expect(await gitInit()).toContain("already");
+    });
+
+    it("does not change the current HEAD", async () => {
+      let before = await execa("git", ["rev-parse", "HEAD"], { cwd: directory });
+      await gitInit();
+      let after = await execa("git", ["rev-parse", "HEAD"], { cwd: directory });
+      expect(after.stdout).toBe(before.stdout);
+    });
+  });
 });
 
 describe("isWorkingDirectoryClean", () => {

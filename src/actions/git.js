@@ -4,6 +4,19 @@ import { execa } from "execa";
 import { pathExists } from "fs-extra";
 import { join } from "node:path";
 
+/** Initializes a new Git repository if one does not already exist in the current directory. */
+export async function gitInit() {
+  let cwd = process.cwd();
+
+  if (await pathExists(join(cwd, ".git"))) {
+    return "Git repository already initialized.";
+  }
+
+  await execa("git", ["init", "-q"], { cwd });
+
+  return "Initialized Git repository.";
+}
+
 export async function isWorkingDirectoryClean() {
   return (await execa("git", ["diff", "--quiet"], { reject: false })).exitCode === 0;
 }
