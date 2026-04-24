@@ -29,3 +29,4 @@ This file provides guidance to coding agents working with code in this repositor
 
 - ESM only; `.js` extensions in imports.
 - Adding a generator requires three edits: new dir under `src/`, import in `plopfile.js`, call in the exported function.
+- Run `pnpm run lint` after editing JavaScript files.
