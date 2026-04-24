@@ -13,7 +13,7 @@ export default (plop) => {
         choices: [
           { name: "TypeScript", value: "typescript" },
           { name: "React", value: "react" },
-          { name: "Jest", value: "jest" },
+          { name: "Vitest", value: "vitest" },
         ],
       },
       {
@@ -28,7 +28,7 @@ export default (plop) => {
     actions: (answers) => {
       let typescript = answers[PLUGINS_MESSAGE].includes("typescript");
       let react = answers[PLUGINS_MESSAGE].includes("react");
-      let jest = answers[PLUGINS_MESSAGE].includes("jest");
+      let vitest = answers[PLUGINS_MESSAGE].includes("vitest");
       let browser = answers[GLOBALS_MESSAGE].includes("browser");
       let node = answers[GLOBALS_MESSAGE].includes("node");
 
@@ -41,7 +41,7 @@ export default (plop) => {
 
       extensions = extensions.length === 1 ? extensions[0] : `{${extensions.join(",")}}`;
 
-      let data = { typescript, react, jest, browser, node, extensions };
+      let data = { typescript, react, vitest, browser, node, extensions };
 
       return [
         {
@@ -62,7 +62,7 @@ export default (plop) => {
                   { name: "eslint-plugin-react-hooks", dev: true },
                 ]
               : []),
-            ...(jest ? [{ name: "eslint-plugin-jest", dev: true }] : []),
+            ...(vitest ? [{ name: "@vitest/eslint-plugin", dev: true }] : []),
           ],
         },
         {

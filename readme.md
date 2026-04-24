@@ -19,7 +19,7 @@ pnpx @landonschropp/generate prettier
 pnpx @landonschropp/generate only-allow
 pnpx @landonschropp/generate eslint
 pnpx @landonschropp/generate typescript
-pnpx @landonschropp/generate jest
+pnpx @landonschropp/generate vitest
 pnpx @landonschropp/generate husky
 ```
 
@@ -33,7 +33,7 @@ These are the generators included with this project:
 - `only-allow`: Configures [only-allow](https://github.com/pnpm/only-allow).
 - `eslint`: Installs and configures [ESLint](https://eslint.org/).
 - `typescript`: Installs and configures [TypeScript](https://typescriptlang.org/).
-- `jest`: Installs and sets up [Jest](https://jestjs.io/).
+- `vitest`: Installs and sets up [Vitest](https://vitest.dev/).
 - `husky`: Installs and configures [Husky](https://typicode.github.io/husky/) and
   [lint-staged](https://www.npmjs.com/package/lint-staged).
 

@@ -1,8 +1,8 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import javascript from "@eslint/js";
 import prettier from "eslint-config-prettier";
-{{#if jest}}
-import jest from "eslint-plugin-jest";
+{{#if vitest}}
+import vitest from "@vitest/eslint-plugin";
 {{/if}}
 {{#if react}}
 import react from "eslint-plugin-react";
@@ -23,10 +23,10 @@ export default defineConfig([
     ignores: ["**/*.d.ts"],
   },
   javascript.configs.recommended,
-  {{#if jest}}
+  {{#if vitest}}
   {
     files: ["**/*.test.{{extensions}}"],
-    ...jest.configs['flat/recommended'],
+    ...vitest.configs.recommended,
   },
   {{/if}}
   {{#if react}}

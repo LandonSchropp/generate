@@ -8,10 +8,10 @@ import {
 import eslint from "./src/eslint/index.js";
 import husky from "./src/husky/index.js";
 import initialize from "./src/initialize/index.js";
-import jest from "./src/jest/index.js";
 import onlyAllow from "./src/only-allow/index.js";
 import prettier from "./src/prettier/index.js";
 import typescript from "./src/typescript/index.js";
+import vitest from "./src/vitest/index.js";
 
 export default async (plop) => {
   // TODO: Instead of letting the user choose one generator, it would be great if multiple
@@ -36,6 +36,6 @@ export default async (plop) => {
   onlyAllow(plop);
   eslint(plop);
   typescript(plop);
-  jest(plop);
+  vitest(plop);
   husky(plop);
 };
