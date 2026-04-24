@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { execa } from "execa";
+import { pathExists } from "fs-extra";
 
 async function isWorkingDirectoryClean() {
   return (await execa("git", ["diff", "--quiet"], { reject: false })).exitCode === 0;
@@ -24,8 +25,11 @@ export async function gitSafetyCheck() {
 
 /** This action stages the provided files and commits them with the given message. */
 export async function gitCommit(_answers, { files, message }) {
-  await execa("git", ["add", ...files]);
+  let checks = await Promise.all(files.map(pathExists));
+  let existingFiles = files.filter((_, index) => checks[index]);
+
+  await execa("git", ["add", ...existingFiles]);
   await execa("git", ["commit", "--message", message]);
 
-  return `Committed files: ${chalk.cyan(files.join(", "))}`;
+  return `Committed files: ${chalk.cyan(existingFiles.join(", "))}`;
 }
