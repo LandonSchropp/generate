@@ -7,14 +7,12 @@ export default (plop) => {
       {
         type: "confirm",
         name: "typescript",
-        message: "Are you using TypeScript?",
-        default: true,
+        message: "Is this a TypeScript project?",
       },
       {
         type: "confirm",
         name: "react",
-        message: "Are you using React?",
-        default: true,
+        message: "Is this a React project?",
       },
     ],
     actions: (answers) => {

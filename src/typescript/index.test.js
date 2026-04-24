@@ -24,7 +24,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["typescript", "node", ""], { cwd: directory });
+      await execa(BIN, ["typescript", "node", "false", ""], { cwd: directory });
     }, 60000);
 
     it("writes a tsconfig.json with noEmit set", async () => {
@@ -52,7 +52,7 @@ describe("the typescript generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["typescript", "node", "dist"], { cwd: directory });
+      await execa(BIN, ["typescript", "node", "false", "dist"], { cwd: directory });
     }, 60000);
 
     it("writes a tsconfig.json with the given outDir", async () => {

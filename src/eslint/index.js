@@ -1,24 +1,28 @@
 import { packageManagerLockFile } from "../utilities/package-manager.js";
 
-const PLUGINS_MESSAGE = "Which ESLint plugins do you want to use?";
-const GLOBALS_MESSAGE = "Which globals would you like to include?";
-
 export default (plop) => {
   plop.setGenerator("eslint", {
     description: "Sets up ESLint",
     prompts: [
       {
-        type: "checkbox",
-        name: PLUGINS_MESSAGE,
-        choices: [
-          { name: "TypeScript", value: "typescript" },
-          { name: "React", value: "react" },
-          { name: "Vitest", value: "vitest" },
-        ],
+        type: "confirm",
+        name: "typescript",
+        message: "Is this a TypeScript project?",
+      },
+      {
+        type: "confirm",
+        name: "react",
+        message: "Is this a React project?",
+      },
+      {
+        type: "confirm",
+        name: "vitest",
+        message: "Is this a Vitest project?",
       },
       {
         type: "checkbox",
-        name: GLOBALS_MESSAGE,
+        name: "globals",
+        message: "Which globals would you like to include?",
         choices: [
           { name: "Browser", value: "browser" },
           { name: "Node", value: "node" },
@@ -26,11 +30,9 @@ export default (plop) => {
       },
     ],
     actions: (answers) => {
-      let typescript = answers[PLUGINS_MESSAGE].includes("typescript");
-      let react = answers[PLUGINS_MESSAGE].includes("react");
-      let vitest = answers[PLUGINS_MESSAGE].includes("vitest");
-      let browser = answers[GLOBALS_MESSAGE].includes("browser");
-      let node = answers[GLOBALS_MESSAGE].includes("node");
+      let { typescript, react, vitest } = answers;
+      let browser = answers.globals.includes("browser");
+      let node = answers.globals.includes("node");
 
       let extensions = [
         "js",

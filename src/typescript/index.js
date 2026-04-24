@@ -10,9 +10,13 @@ export default (plop) => {
         message: "What type of project is this?",
         choices: [
           { name: "Node", value: "node" },
-          { name: "React", value: "react" },
           { name: "Browser", value: "browser" },
         ],
+      },
+      {
+        type: "confirm",
+        name: "react",
+        message: "Is this a React project?",
       },
       {
         type: "input",
@@ -21,13 +25,14 @@ export default (plop) => {
       },
     ],
     actions: (answers) => {
-      let { type, outDir } = answers;
+      let { type, react, outDir } = answers;
       let emit = outDir !== "";
 
       let data = {
         node: type === "node",
-        react: type === "react",
-        reactOrBrowser: type === "react" || type === "browser",
+        browser: type === "browser",
+        react,
+        dom: react || type === "browser",
         emit,
         outDir,
       };

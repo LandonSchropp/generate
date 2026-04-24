@@ -25,7 +25,7 @@ describe("the eslint generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["eslint", "typescript", "node"], { cwd: directory });
+      await execa(BIN, ["eslint", "true", "false", "false", "node"], { cwd: directory });
     }, 120000);
 
     it("writes an eslint.config.js that imports typescript-eslint", async () => {
@@ -53,7 +53,7 @@ describe("the eslint generator", () => {
 
     beforeAll(async () => {
       directory = await setupRepo();
-      await execa(BIN, ["eslint", "react", "browser"], { cwd: directory });
+      await execa(BIN, ["eslint", "false", "true", "false", "browser"], { cwd: directory });
     }, 120000);
 
     it("writes an eslint.config.js that imports eslint-plugin-react", async () => {

@@ -55,6 +55,7 @@ export default async (plop) => {
           { name: "MIT", value: "MIT" },
           { name: "Unlicensed", value: "UNLICENSED" },
         ],
+        default: packageJson.license,
       },
       {
         type: "confirm",
