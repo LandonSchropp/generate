@@ -13,6 +13,11 @@
     "generator"
   ],
   "version": "0.3.1",
+  "files": [
+    "src/",
+    "!src/**/*.test.js",
+    "plopfile.js"
+  ],
   "scripts": {
     "prepare": "husky",
     "lint": "eslint .",
