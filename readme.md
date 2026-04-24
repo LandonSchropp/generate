@@ -5,8 +5,15 @@ This is a collection of generators for setting up JavaScript/TypeScript projects
 
 ## TL/DR
 
+Run `generate` and select the generators you'd like to run.
+
 ```bash
 pnpx @landonschropp/generate
+```
+
+You can also specify specific generators.
+
+```bash
 pnpx @landonschropp/generate initialize
 pnpx @landonschropp/generate prettier
 pnpx @landonschropp/generate only-allow
@@ -38,6 +45,12 @@ pnpx @landonschropp/generate <generator>
 
 You can run any of these generators independently, but if you're running more than one do so in the
 order listed above.
+
+To run the generators non-interactively, use `--help` with the generator to see the available flags.
+
+```bash
+pnpx @landonschropp/generate <generator> --help
+```
 
 ## Development
 
