@@ -39,6 +39,12 @@ describe("the husky generator", () => {
       expect(await readFile(join(directory, ".husky/pre-commit"), "utf8")).toContain("lint-staged");
     });
 
+    it("writes a no-op commit-msg hook to work around typicode/husky#1632", async () => {
+      let contents = await readFile(join(directory, ".husky/commit-msg"), "utf8");
+      expect(contents).toContain("typicode/husky#1632");
+      expect(contents).toContain("exit 0");
+    });
+
     it("writes a .lintstagedrc.json with a prettier entry", async () => {
       let config = await readJson(join(directory, ".lintstagedrc.json"));
       expect(config["*"]).toContain("prettier");

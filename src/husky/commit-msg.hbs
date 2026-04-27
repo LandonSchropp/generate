@@ -1,0 +1,4 @@
+# Workaround for typicode/husky#1632. Husky's wrapper (.husky/_/h) exits before sourcing
+# ~/.config/husky/init.sh when no local hook file exists, preventing global commit-msg hooks from
+# running. This file satisfies the existence check.
+exit 0

@@ -93,6 +93,12 @@ export default (plop) => {
           data,
         },
         {
+          type: "add",
+          path: ".husky/commit-msg",
+          templateFile: "src/husky/commit-msg.hbs",
+          force: true,
+        },
+        {
           type: "mergeJSON",
           path: "package.json",
           json: {
@@ -115,6 +121,7 @@ export default (plop) => {
           message: "Set up Husky",
           files: [
             ".husky/pre-commit",
+            ".husky/commit-msg",
             ".lintstagedrc.json",
             "package.json",
             packageManagerLockFile(),
