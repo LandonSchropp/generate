@@ -31,7 +31,7 @@ export function findPackageManager(cwd = process.cwd()) {
     return "pnpm";
   }
 
-  if (existsSync(join(cwd, "bun.lock"))) {
+  if (existsSync(join(cwd, "bun.lock")) || existsSync(join(cwd, "bunfig.toml"))) {
     return "bun";
   }
 

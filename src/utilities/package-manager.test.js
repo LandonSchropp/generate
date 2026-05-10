@@ -103,6 +103,16 @@ describe("findPackageManager", () => {
     });
   });
 
+  describe("when bunfig.toml exists", () => {
+    beforeEach(async () => {
+      await writeFile(join(directory, "bunfig.toml"), "");
+    });
+
+    it("returns bun", () => {
+      expect(findPackageManager()).toBe("bun");
+    });
+  });
+
   describe("when package-lock.json exists", () => {
     beforeEach(async () => {
       await writeFile(join(directory, "package-lock.json"), "");
