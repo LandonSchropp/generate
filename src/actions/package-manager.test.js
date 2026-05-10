@@ -93,12 +93,12 @@ describe("addPackages", () => {
       });
     });
 
-    it("adds regular dependencies with bun install", () => {
-      expect(execa).toHaveBeenCalledWith("bun", ["install", "chalk"]);
+    it("adds regular dependencies with bun add", () => {
+      expect(execa).toHaveBeenCalledWith("bun", ["add", "chalk"]);
     });
 
-    it("adds dev dependencies with --save-dev", () => {
-      expect(execa).toHaveBeenCalledWith("bun", ["install", "--save-dev", "vitest"]);
+    it("adds dev dependencies with --dev", () => {
+      expect(execa).toHaveBeenCalledWith("bun", ["add", "--dev", "vitest"]);
     });
   });
 
