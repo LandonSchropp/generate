@@ -1,3 +1,4 @@
+import { appendToFile } from "./src/actions/file.js";
 import { gitCommit, gitInit, gitSafetyCheck } from "./src/actions/git.js";
 import { writeJSON, mergeJSON } from "./src/actions/json.js";
 import {
@@ -5,6 +6,7 @@ import {
   executeWithPackageManager,
   installPackages,
 } from "./src/actions/package-manager.js";
+import bunTest from "./src/bun-test/index.js";
 import eslint from "./src/eslint/index.js";
 import husky from "./src/husky/index.js";
 import initialize from "./src/initialize/index.js";
@@ -28,6 +30,7 @@ export default async (plop) => {
   plop.setActionType("writeJSON", writeJSON);
   plop.setActionType("gitInit", gitInit);
   plop.setActionType("gitSafetyCheck", gitSafetyCheck);
+  plop.setActionType("appendToFile", appendToFile);
   plop.setActionType("gitCommit", gitCommit);
 
   // Generators
@@ -37,5 +40,6 @@ export default async (plop) => {
   eslint(plop);
   typescript(plop);
   vitest(plop);
+  bunTest(plop);
   husky(plop);
 };
