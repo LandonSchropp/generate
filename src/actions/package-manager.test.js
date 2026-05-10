@@ -27,7 +27,7 @@ describe("addPackages", () => {
       });
 
       it("runs pnpm add with the package name", () => {
-        expect(execa).toHaveBeenCalledWith("pnpm", ["add", "chalk"]);
+        expect(execa).toHaveBeenCalledWith("pnpm", ["add", "chalk"], { env: {} });
       });
     });
 
@@ -37,7 +37,7 @@ describe("addPackages", () => {
       });
 
       it("runs pnpm add with --save-dev", () => {
-        expect(execa).toHaveBeenCalledWith("pnpm", ["add", "--save-dev", "vitest"]);
+        expect(execa).toHaveBeenCalledWith("pnpm", ["add", "--save-dev", "vitest"], { env: {} });
       });
     });
 
@@ -49,11 +49,13 @@ describe("addPackages", () => {
       });
 
       it("adds regular dependencies first", () => {
-        expect(execa).toHaveBeenNthCalledWith(1, "pnpm", ["add", "chalk"]);
+        expect(execa).toHaveBeenNthCalledWith(1, "pnpm", ["add", "chalk"], { env: {} });
       });
 
       it("adds dev dependencies second", () => {
-        expect(execa).toHaveBeenNthCalledWith(2, "pnpm", ["add", "--save-dev", "vitest"]);
+        expect(execa).toHaveBeenNthCalledWith(2, "pnpm", ["add", "--save-dev", "vitest"], {
+          env: {},
+        });
       });
     });
 
@@ -77,11 +79,11 @@ describe("addPackages", () => {
     });
 
     it("adds regular dependencies with yarn add", () => {
-      expect(execa).toHaveBeenCalledWith("yarn", ["add", "chalk"]);
+      expect(execa).toHaveBeenCalledWith("yarn", ["add", "chalk"], { env: {} });
     });
 
     it("adds dev dependencies with --dev", () => {
-      expect(execa).toHaveBeenCalledWith("yarn", ["add", "--dev", "vitest"]);
+      expect(execa).toHaveBeenCalledWith("yarn", ["add", "--dev", "vitest"], { env: {} });
     });
   });
 
@@ -94,11 +96,27 @@ describe("addPackages", () => {
     });
 
     it("adds regular dependencies with bun add", () => {
-      expect(execa).toHaveBeenCalledWith("bun", ["add", "chalk"]);
+      expect(execa).toHaveBeenCalledWith(
+        "bun",
+        ["add", "chalk"],
+        expect.objectContaining({
+          env: expect.objectContaining({
+            npm_config_user_agent: expect.stringMatching(/^bun\//),
+          }),
+        }),
+      );
     });
 
     it("adds dev dependencies with --dev", () => {
-      expect(execa).toHaveBeenCalledWith("bun", ["add", "--dev", "vitest"]);
+      expect(execa).toHaveBeenCalledWith(
+        "bun",
+        ["add", "--dev", "vitest"],
+        expect.objectContaining({
+          env: expect.objectContaining({
+            npm_config_user_agent: expect.stringMatching(/^bun\//),
+          }),
+        }),
+      );
     });
   });
 
@@ -110,11 +128,11 @@ describe("addPackages", () => {
     });
 
     it("adds regular dependencies with npm install --save", () => {
-      expect(execa).toHaveBeenCalledWith("npm", ["install", "--save", "chalk"]);
+      expect(execa).toHaveBeenCalledWith("npm", ["install", "--save", "chalk"], { env: {} });
     });
 
     it("adds dev dependencies with npm install --save-dev", () => {
-      expect(execa).toHaveBeenCalledWith("npm", ["install", "--save-dev", "vitest"]);
+      expect(execa).toHaveBeenCalledWith("npm", ["install", "--save-dev", "vitest"], { env: {} });
     });
   });
 });
@@ -152,7 +170,7 @@ describe("installPackages", () => {
     });
 
     it("uses that manager's install command", () => {
-      expect(execa).toHaveBeenCalledWith("yarn", ["install"]);
+      expect(execa).toHaveBeenCalledWith("yarn", ["install"], { env: {} });
     });
   });
 
@@ -163,7 +181,15 @@ describe("installPackages", () => {
     });
 
     it("detects the manager from the lockfile and installs", () => {
-      expect(execa).toHaveBeenCalledWith("bun", ["install"]);
+      expect(execa).toHaveBeenCalledWith(
+        "bun",
+        ["install"],
+        expect.objectContaining({
+          env: expect.objectContaining({
+            npm_config_user_agent: expect.stringMatching(/^bun\//),
+          }),
+        }),
+      );
     });
   });
 });

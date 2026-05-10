@@ -26,6 +26,20 @@ function packageList(packages) {
   return chalk.cyan(packages.join(", "));
 }
 
+// The agent string format Bun itself would set if it populated npm_config_user_agent.
+const BUN_ENV = { npm_config_user_agent: "bun/0 npm/? node/0 unknown unknown" };
+
+/**
+ * Runs a shell command via execa, overriding `npm_config_user_agent` for Bun so preinstall scripts
+ * like `only-allow` see the correct package manager. Bun inherits the parent's agent instead of
+ * setting its own, so running via `pnpx`/`npx` would otherwise leave a pnpm/npm agent in place.
+ *
+ * @param {string[]} command - The executable and its arguments.
+ */
+function runCommand(command) {
+  return execa(command[0], command.slice(1), { env: command[0] === "bun" ? BUN_ENV : {} });
+}
+
 async function runAddPackagesCommand(packages, dev) {
   if (packages.length === 0) {
     return;
@@ -34,7 +48,7 @@ async function runAddPackagesCommand(packages, dev) {
   let command = await addPackagesCommand(packages, dev);
 
   try {
-    await execa(command[0], command.slice(1));
+    await runCommand(command);
   } catch (error) {
     throw `Failed to add ${packageList(packages)}:\n\n${chalk.red(error.message)}`;
   }
@@ -92,7 +106,7 @@ export async function installPackages(_answers, { packageManager }) {
   let installCommand = packageManagerInstallCommand(packageManager);
 
   try {
-    await execa(installCommand[0], installCommand.slice(1));
+    await runCommand(installCommand);
   } catch (error) {
     throw `Failed to install packages:\n\n${chalk.red(error.message)}`;
   }
