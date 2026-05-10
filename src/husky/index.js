@@ -44,7 +44,8 @@ export default (plop) => {
       let typescript = hasDependency("typescript");
       let prettier = hasDependency("prettier");
       let eslint = hasDependency("eslint");
-      let test = hasDependency("vitest") || hasDependency("jest");
+      let test =
+        hasDependency("vitest") || hasDependency("jest") || detectPackageManager() === "bun";
 
       let data = { runCommand: packageManagerRunCommand().join(" ") };
 

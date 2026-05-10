@@ -65,4 +65,32 @@ describe("the husky generator", () => {
       expect((await lastCommit(directory)).subject).toBe("Set up Husky");
     });
   });
+
+  describe("when the package manager is bun", () => {
+    let directory;
+
+    beforeAll(async () => {
+      directory = await initializeTestRepo();
+      await writeFile(
+        join(directory, "package.json"),
+        JSON.stringify({
+          name: "t",
+          type: "module",
+          scripts: {},
+          devDependencies: { "@types/bun": "*" },
+        }) + "\n",
+      );
+      await writeFile(join(directory, "bunfig.toml"), "[test]\ncoverage = true\n");
+      await execa("bun", ["install", "--lockfile-only"], { cwd: directory });
+      await execa("git", ["add", "package.json", "bun.lock", "bunfig.toml"], { cwd: directory });
+      await execa("git", ["commit", "-q", "-m", "add package"], { cwd: directory });
+      await runGenerator("husky", directory);
+    }, 120000);
+
+    it("writes a .lintstagedrc.json with a bun test entry", async () => {
+      let config = await readJson(join(directory, ".lintstagedrc.json"));
+      let testKey = Object.keys(config).find((key) => config[key] === "bun test");
+      expect(testKey).toBeTruthy();
+    });
+  });
 });
