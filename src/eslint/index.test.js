@@ -41,6 +41,11 @@ describe("the eslint generator", () => {
       expect(packageJson.scripts.lint).toBe("eslint .");
     });
 
+    it("adds jiti so the LSP can load a TypeScript eslint config", async () => {
+      let packageJson = await readJson(join(directory, "package.json"));
+      expect(packageJson.devDependencies).toHaveProperty("jiti");
+    });
+
     it("commits the changes with 'Set up ESLint'", async () => {
       expect((await lastCommit(directory)).subject).toBe("Set up ESLint");
     });
