@@ -46,6 +46,29 @@ describe("the eslint generator", () => {
       expect(packageJson.devDependencies).toHaveProperty("jiti");
     });
 
+    it("adds eslint-plugin-jsdoc to the dev dependencies", async () => {
+      let packageJson = await readJson(join(directory, "package.json"));
+      expect(packageJson.devDependencies).toHaveProperty("eslint-plugin-jsdoc");
+    });
+
+    it("writes an eslint.config.js that uses the TypeScript jsdoc config", async () => {
+      expect(await readFile(join(directory, "eslint.config.js"), "utf8")).toContain(
+        'jsdoc.configs["flat/recommended-typescript"]',
+      );
+    });
+
+    it("writes an eslint.config.js that overrides the jsdoc rules", async () => {
+      let config = await readFile(join(directory, "eslint.config.js"), "utf8");
+      expect(config).toContain('"jsdoc/tag-lines": ["warn", "any", { startLines: 1 }]');
+      expect(config).toContain('"jsdoc/require-throws-type": "off"');
+    });
+
+    it("omits the React-specific jsdoc rules", async () => {
+      let config = await readFile(join(directory, "eslint.config.js"), "utf8");
+      expect(config).not.toContain("jsdoc/require-returns");
+      expect(config).not.toContain("jsdoc/require-param");
+    });
+
     it("commits the changes with 'Set up ESLint'", async () => {
       expect((await lastCommit(directory)).subject).toBe("Set up ESLint");
     });
@@ -68,6 +91,22 @@ describe("the eslint generator", () => {
     it("writes an eslint.config.js that uses browser globals", async () => {
       expect(await readFile(join(directory, "eslint.config.js"), "utf8")).toContain(
         "globals.browser",
+      );
+    });
+
+    it("writes an eslint.config.js that uses the non-TypeScript jsdoc config", async () => {
+      expect(await readFile(join(directory, "eslint.config.js"), "utf8")).toContain(
+        'jsdoc.configs["flat/recommended"]',
+      );
+    });
+
+    it("includes the React-specific jsdoc rules", async () => {
+      let config = await readFile(join(directory, "eslint.config.js"), "utf8");
+      expect(config).toContain(
+        '"jsdoc/require-param": ["warn", { interfaceExemptsParamsCheck: true }]',
+      );
+      expect(config).toContain(
+        '"jsdoc/require-returns": ["warn", { contexts: [":function:not([id.name=/^[A-Z]/])"] }]',
       );
     });
   });

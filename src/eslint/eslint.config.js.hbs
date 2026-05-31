@@ -1,6 +1,7 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import javascript from "@eslint/js";
 import prettier from "eslint-config-prettier";
+import jsdoc from "eslint-plugin-jsdoc";
 {{#if vitest}}
 import vitest from "@vitest/eslint-plugin";
 {{/if}}
@@ -44,6 +45,22 @@ export default defineConfig([
     },
   },
   {{/if}}
+  {{#if typescript}}
+  jsdoc.configs["flat/recommended-typescript"],
+  {{else}}
+  jsdoc.configs["flat/recommended"],
+  {{/if}}
+  {
+    rules: {
+      "jsdoc/tag-lines": ["warn", "any", { startLines: 1 }],
+      {{#if react}}
+      "jsdoc/require-param": ["warn", { interfaceExemptsParamsCheck: true }],
+      "jsdoc/require-returns": ["warn", { contexts: [":function:not([id.name=/^[A-Z]/])"] }],
+      {{/if}}
+      "jsdoc/require-throws-type": "off",
+      "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
+    },
+  },
   prettier,
   {
     files: ["**/*.{{extensions}}"],
